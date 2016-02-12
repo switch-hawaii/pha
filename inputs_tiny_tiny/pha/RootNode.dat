@@ -1,0 +1,314 @@
+param hydrogen_electrolyzer_capital_cost_per_mw := 1557850.35403;
+param g_competes_for_space := Waiau_LSFO_47.7_MW_ST 0 Chevron_LSFO_3.2_MW_GT_cogen 0 SCCT 0 Kahe_LSFO_77.9_MW_ST 0 CIP_Biodiesel_113_MW_GT 0 Reciprocating 0 HPower_MLG_60_MW_ST 0 Kalaeloa_5_MW_PV 0 DistPV_peak 0 Chevron_LSFO_3_MW_GT_cogen 0 Waiau_LSFO_47.2_MW_ST 0 Kahe_LSFO_82.1_MW_ST 0 Kahe_LSFO_78.1_MW_ST 0 Kawailoa_69_MW_WT 0 AES_Coal_180_MW_ST 0 Waiau_LSFO_51.8_MW_ST 0 Honolulu_LSFO_51.7_MW_ST 0 CCCT 0 Waiau_LSFO_77.8_MW_ST 0 Solar_210_MW_PV 0 Kahe_LSFO_128.7_MW_ST 0 Kahuku_30_MW_WT 0 Waiau_LSFO_51.9_MW_ST 0 Kahe_LSFO_128.1_MW_ST 0 Tesoro_LSFO_20_MW_GT_cogen 0 Kahe_LSFO_87.2_MW_ST 0 Waiau_High-Sulfur-Diesel_51.2_MW_GT 0 Kalaeloa_107_MW_CC_cogen 0 Honolulu_LSFO_48.6_MW_ST 0;
+param discount_rate := 0.03;
+set EXISTING_PROJ_BUILDYEARS := ('Oahu_Honolulu_H9', 1957) ('Oahu_Solar_DistPV', 2013) ('Oahu_Waiau_W3', 1947) ('Oahu_Honolulu_H8', 1954) ('Oahu_Kalaeloa_KAS2', 2012) ('Oahu_Kawailoa_1', 2012) ('Oahu_Waiau_W10_W9', 1973) ('Oahu_Kalaeloa_CC1_CC2', 1989) ('Oahu_Tesoro_GEN1', 1982) ('Oahu_HPower_GEN1', 1989) ('Oahu_Kahe_K6', 1981) ('Oahu_Waiau_W7_W8', 1968) ('Oahu_Kahe_K4', 1972) ('Oahu_Waiau_W4', 1950) ('Oahu_Kahe_K2', 1964) ('Oahu_Kahe_K5', 1974) ('Oahu_Kahe_K1', 1963) ('Oahu_AES_GEN1', 1992) ('Oahu_Kalaeloa_CC1_CC2', 1991) ('Oahu_Waiau_W6', 1961) ('Oahu_CIP_CIP1', 2009) ('Oahu_Waiau_W7_W8', 1966) ('Oahu_Chevron_GEN1_GEN2_GEN3', 1990) ('Oahu_Waiau_W5', 1959) ('Oahu_Kahuku_1', 2011) ('Oahu_Kahe_K3', 1970) ('Oahu_Chevron_GEN4', 2011);
+param proj_max_capacity_factor := 
+ Oahu_Kawailoa_1 210721 0.342700939059
+ Oahu_Kawailoa_1 370721 0.342700939059
+ Oahu_Kawailoa_1 370706 0.488616008863
+ Oahu_Kawailoa_1 210712 0.500744359231
+ Oahu_Solar_DistPV 210700 0.0
+ Oahu_DistPV_peak_1_na 210721 0.0
+ Oahu_Kalaeloa_KAS2 210712 0.985450012207
+ Oahu_Kalaeloa_KAS2 370706 0.0494833335876
+ Oahu_Kawailoa_1 210706 0.488616008863
+ Oahu_Kawailoa_1 210700 0.628269517568
+ Oahu_DistPV_peak_1_na 370718 0.0992165834908
+ Oahu_Kalaeloa_KAS2 210709 0.782083374023
+ Oahu_Solar_DistPV 210712 0.987450005759
+ Oahu_Kawailoa_1 370718 0.636405617521
+ Oahu_Kalaeloa_KAS2 210715 0.752316650391
+ Oahu_Kalaeloa_KAS2 370712 0.985450012207
+ Oahu_Kawailoa_1 210718 0.636405617521
+ Oahu_DistPV_peak_1_na 370706 0.0511339063349
+ Oahu_DistPV_peak_1_na 210709 0.587734042532
+ Oahu_Kalaeloa_KAS2 210706 0.0494833335876
+ Oahu_DistPV_peak_1_na 210703 0.0
+ Oahu_DistPV_peak_1_na 210700 0.0
+ Oahu_DistPV_peak_1_na 370715 0.579132561657
+ Oahu_DistPV_peak_1_na 210706 0.0511339063349
+ Oahu_Kahuku_1 210703 0.258820165571
+ Oahu_Kahuku_1 210712 0.466781913241
+ Oahu_Kahuku_1 210700 0.243764287215
+ Oahu_Kalaeloa_KAS2 210718 0.131983337402
+ Oahu_Kahuku_1 210721 0.358597513117
+ Oahu_Kalaeloa_KAS2 210700 0.0
+ Oahu_DistPV_peak_1_na 370721 0.0
+ Oahu_Kahuku_1 210709 0.325459745986
+ Oahu_Solar_DistPV 370715 0.638092289177
+ Oahu_Kalaeloa_KAS2 370721 0.0
+ Oahu_Kahuku_1 210718 0.601821047369
+ Oahu_DistPV_peak_1_na 370712 0.896209625227
+ Oahu_Solar_DistPV 370706 0.0563396940666
+ Oahu_Kawailoa_1 210715 0.590440790483
+ Oahu_DistPV_peak_1_na 370709 0.587734042532
+ Oahu_Kahuku_1 370700 0.243764287215
+ Oahu_Kalaeloa_KAS2 370703 0.0
+ Oahu_Kahuku_1 370706 0.341296125805
+ Oahu_Kalaeloa_KAS2 210703 0.0
+ Oahu_Kahuku_1 370709 0.325459745986
+ Oahu_Solar_DistPV 210718 0.109317522577
+ Oahu_Solar_DistPV 370721 0.0
+ Oahu_Kahuku_1 210715 0.378818171193
+ Oahu_Solar_DistPV 210721 0.0
+ Oahu_Solar_DistPV 210709 0.647569460701
+ Oahu_DistPV_peak_1_na 370703 0.0
+ Oahu_Kahuku_1 370715 0.378818171193
+ Oahu_Solar_DistPV 370700 0.0
+ Oahu_Kalaeloa_KAS2 370709 0.782083374023
+ Oahu_Kawailoa_1 210709 0.403906227397
+ Oahu_Kawailoa_1 370700 0.628269517568
+ Oahu_Kahuku_1 370721 0.358597513117
+ Oahu_Kalaeloa_KAS2 370718 0.131983337402
+ Oahu_DistPV_peak_1_na 210715 0.579132561657
+ Oahu_DistPV_peak_1_na 210718 0.0992165834908
+ Oahu_Solar_DistPV 210715 0.638092289177
+ Oahu_Kawailoa_1 370709 0.403906227397
+ Oahu_Kawailoa_1 210703 0.269055002981
+ Oahu_Kawailoa_1 370703 0.269055002981
+ Oahu_Solar_DistPV 370709 0.647569460701
+ Oahu_Solar_DistPV 370718 0.109317522577
+ Oahu_Kalaeloa_KAS2 210721 0.0
+ Oahu_Kahuku_1 210706 0.341296125805
+ Oahu_Kawailoa_1 370712 0.500744359231
+ Oahu_Solar_DistPV 370712 0.987450005759
+ Oahu_Kalaeloa_KAS2 370715 0.752316650391
+ Oahu_Kahuku_1 370718 0.601821047369
+ Oahu_Kalaeloa_KAS2 370700 0.0
+ Oahu_Kawailoa_1 370715 0.590440790483
+ Oahu_DistPV_peak_1_na 210712 0.896209625227
+ Oahu_Solar_DistPV 210706 0.0563396940666
+ Oahu_Kahuku_1 370712 0.466781913241
+ Oahu_DistPV_peak_1_na 370700 0.0
+ Oahu_Solar_DistPV 210703 0.0
+ Oahu_Kahuku_1 370703 0.258820165571
+ Oahu_Solar_DistPV 370703 0.0
+;
+param hydrogen_fuel_cell_mwh_per_kg := 0.0176975833333;
+param ph_efficiency := Lake_Wilson 0.77;
+set PH_PROJECTS := Lake_Wilson;
+set NON_FUEL_ENERGY_SOURCES := MSW SUN WND;
+param ph_project_life := Lake_Wilson 50;
+param battery_max_discharge := 0.85;
+param battery_n_cycles := 4500;
+set RPS_YEARS := 2015 2020 2030 2040 2045;
+param proj_load_zone := Oahu_Honolulu_H8 "Oahu" Oahu_HPower_GEN1 "Oahu" Oahu_Kalaeloa_CC1_CC2 "Oahu" Oahu_CCCT "Oahu" Oahu_Kahe_K1 "Oahu" Oahu_Kahe_K3 "Oahu" Oahu_Kahe_K2 "Oahu" Oahu_Kahe_K5 "Oahu" Oahu_Kahe_K4 "Oahu" Oahu_Kahe_K6 "Oahu" Oahu_SCCT "Oahu" Oahu_Chevron_GEN4 "Oahu" Oahu_Waiau_W3 "Oahu" Oahu_Waiau_W6 "Oahu" Oahu_Waiau_W4 "Oahu" Oahu_Waiau_W5 "Oahu" Oahu_AES_GEN1 "Oahu" Oahu_Kawailoa_1 "Oahu" Oahu_Kahuku_1 "Oahu" Oahu_Tesoro_GEN1 "Oahu" Oahu_CIP_CIP1 "Oahu" Oahu_Waiau_W10_W9 "Oahu" Oahu_DistPV_peak_1_na "Oahu" Oahu_Chevron_GEN1_GEN2_GEN3 "Oahu" Oahu_Reciprocating "Oahu" Oahu_Kalaeloa_KAS2 "Oahu" Oahu_Honolulu_H9 "Oahu" Oahu_Solar_DistPV "Oahu" Oahu_Waiau_W7_W8 "Oahu";
+param rfm_fuel := Hawaii_Coal "Coal" Hawaii_LSFO-Diesel-Blend "LSFO-Diesel-Blend" Hawaii_Pellet-Biomass "Pellet-Biomass" Hawaii_Biodiesel "Biodiesel" Hawaii_LNG "LNG" Hawaii_Diesel "Diesel" Hawaii_LSFO "LSFO";
+param proj_variable_om := Oahu_Honolulu_H8 8.19 Oahu_HPower_GEN1 6.1425 Oahu_Kalaeloa_CC1_CC2 6.1425 Oahu_Kahe_K1 8.19 Oahu_Kahe_K3 8.19 Oahu_Kahe_K2 8.19 Oahu_Kahe_K5 8.19 Oahu_Kahe_K4 8.19 Oahu_Kahe_K6 8.19 Oahu_Chevron_GEN4 4.935 Oahu_Waiau_W3 8.19 Oahu_Waiau_W6 8.19 Oahu_Waiau_W4 8.19 Oahu_Waiau_W5 8.19 Oahu_AES_GEN1 4.47 Oahu_Kawailoa_1 0.0 Oahu_Kahuku_1 0.0 Oahu_Tesoro_GEN1 4.935 Oahu_CIP_CIP1 4.935 Oahu_Waiau_W10_W9 4.935 Oahu_Chevron_GEN1_GEN2_GEN3 4.935 Oahu_Kalaeloa_KAS2 0.0 Oahu_Honolulu_H9 8.19 Oahu_Solar_DistPV 0.0 Oahu_Waiau_W7_W8 8.19;
+param liquid_hydrogen_tank_capital_cost_per_kg := 29.4950959252;
+param proj_capacity_limit_mw := Oahu_DistPV_peak_1_na 3022.508978;
+param f_co2_intensity := LSFO 0.0788 Biodiesel 0.0 Diesel 0.0732 LSFO-Diesel-Blend 0.07656 Coal 0.0953 Pellet-Biomass 0.0 LNG 0.0531;
+param g_is_baseload := Waiau_LSFO_47.7_MW_ST 0 Chevron_LSFO_3.2_MW_GT_cogen 1 SCCT 0 Kahe_LSFO_77.9_MW_ST 0 CIP_Biodiesel_113_MW_GT 0 Reciprocating 0 HPower_MLG_60_MW_ST 0 Kalaeloa_5_MW_PV 0 DistPV_peak 0 Chevron_LSFO_3_MW_GT_cogen 1 Waiau_LSFO_47.2_MW_ST 0 Kahe_LSFO_82.1_MW_ST 0 Kahe_LSFO_78.1_MW_ST 0 Kawailoa_69_MW_WT 0 AES_Coal_180_MW_ST 0 Waiau_LSFO_51.8_MW_ST 0 Honolulu_LSFO_51.7_MW_ST 0 CCCT 0 Waiau_LSFO_77.8_MW_ST 0 Solar_210_MW_PV 0 Kahe_LSFO_128.7_MW_ST 0 Kahuku_30_MW_WT 0 Waiau_LSFO_51.9_MW_ST 0 Kahe_LSFO_128.1_MW_ST 0 Tesoro_LSFO_20_MW_GT_cogen 1 Kahe_LSFO_87.2_MW_ST 0 Waiau_High-Sulfur-Diesel_51.2_MW_GT 0 Kalaeloa_107_MW_CC_cogen 1 Honolulu_LSFO_48.6_MW_ST 0;
+param ev_gwh_annual := 
+ Oahu 2021 117.0
+ Oahu 2037 846.0
+;
+param ph_fixed_om_percent := Lake_Wilson 0.015;
+param ts_duration_of_tp := 2107 3.0 3707 3.0;
+param battery_min_discharge_time := 6;
+param f_rps_eligible := LSFO 0 Biodiesel 1 Diesel 0 LSFO-Diesel-Blend 0 Coal 0 Pellet-Biomass 1 LNG 0;
+param hydrogen_electrolyzer_kg_per_mwh := 18.4162062615;
+set TIMESERIES := 2107 3707;
+set LZ_RFM := ('Oahu', 'Hawaii_LSFO-Diesel-Blend') ('Oahu', 'Hawaii_Coal') ('Oahu', 'Hawaii_LNG') ('Oahu', 'Hawaii_LSFO') ('Oahu', 'Hawaii_Diesel') ('Oahu', 'Hawaii_Biodiesel') ('Oahu', 'Hawaii_Pellet-Biomass');
+set FUELS := Pellet-Biomass LSFO-Diesel-Blend LNG Biodiesel LSFO Diesel Coal;
+set NEW_GENERATION_BUILDYEARS := ('CCCT', 2021) ('CCCT', 2037) ('DistPV_peak', 2021) ('DistPV_peak', 2037) ('Reciprocating', 2021) ('Reciprocating', 2037) ('SCCT', 2021) ('SCCT', 2037);
+param ts_period := 2107 2021 3707 2037;
+param ph_inflow_mw := Lake_Wilson 10;
+param hydrogen_electrolyzer_variable_cost_per_kg := 0.0;
+param g_unit_size := Waiau_LSFO_47.7_MW_ST 47.7 Chevron_LSFO_3.2_MW_GT_cogen 3.2 Kahe_LSFO_77.9_MW_ST 77.9 CIP_Biodiesel_113_MW_GT 113.0 HPower_MLG_60_MW_ST 60.0 Kalaeloa_5_MW_PV 5.0 Kahe_LSFO_128.7_MW_ST 128.7 Chevron_LSFO_3_MW_GT_cogen 3.0 Waiau_LSFO_47.2_MW_ST 47.2 Kahe_LSFO_82.1_MW_ST 82.1 Kahe_LSFO_78.1_MW_ST 78.1 Kawailoa_69_MW_WT 69.0 AES_Coal_180_MW_ST 180.0 Waiau_LSFO_51.8_MW_ST 51.8 Honolulu_LSFO_51.7_MW_ST 51.7 Waiau_LSFO_77.8_MW_ST 77.8 Solar_210_MW_PV 210.0 Kahuku_30_MW_WT 30.0 Waiau_LSFO_51.9_MW_ST 51.9 Kahe_LSFO_128.1_MW_ST 128.1 Tesoro_LSFO_20_MW_GT_cogen 20.0 Kahe_LSFO_87.2_MW_ST 87.2 Waiau_High-Sulfur-Diesel_51.2_MW_GT 51.2 Kalaeloa_107_MW_CC_cogen 107.0 Honolulu_LSFO_48.6_MW_ST 48.6;
+param g_variable_o_m := Waiau_LSFO_47.7_MW_ST 8.19 Chevron_LSFO_3.2_MW_GT_cogen 4.935 SCCT 12.2199999169 Kahe_LSFO_77.9_MW_ST 8.19 CIP_Biodiesel_113_MW_GT 4.935 Reciprocating 11.7399999872 HPower_MLG_60_MW_ST 6.1425 Kalaeloa_5_MW_PV 0.0 DistPV_peak 0.0 Chevron_LSFO_3_MW_GT_cogen 4.935 Waiau_LSFO_47.2_MW_ST 8.19 Kahe_LSFO_82.1_MW_ST 8.19 Kahe_LSFO_78.1_MW_ST 8.19 Kawailoa_69_MW_WT 0.0 AES_Coal_180_MW_ST 4.47 Waiau_LSFO_51.8_MW_ST 8.19 Honolulu_LSFO_51.7_MW_ST 8.19 CCCT 10.3949997574 Waiau_LSFO_77.8_MW_ST 8.19 Solar_210_MW_PV 0.0 Kahe_LSFO_128.7_MW_ST 8.19 Kahuku_30_MW_WT 0.0 Waiau_LSFO_51.9_MW_ST 8.19 Kahe_LSFO_128.1_MW_ST 8.19 Tesoro_LSFO_20_MW_GT_cogen 4.935 Kahe_LSFO_87.2_MW_ST 8.19 Waiau_High-Sulfur-Diesel_51.2_MW_GT 4.935 Kalaeloa_107_MW_CC_cogen 6.1425 Honolulu_LSFO_48.6_MW_ST 8.19;
+param ph_max_capacity_mw := Lake_Wilson 150;
+set GENERATION_TECHNOLOGIES := AES_Coal_180_MW_ST CCCT CIP_Biodiesel_113_MW_GT Chevron_LSFO_3.2_MW_GT_cogen Chevron_LSFO_3_MW_GT_cogen DistPV_peak HPower_MLG_60_MW_ST Honolulu_LSFO_48.6_MW_ST Honolulu_LSFO_51.7_MW_ST Kahe_LSFO_128.1_MW_ST Kahe_LSFO_128.7_MW_ST Kahe_LSFO_77.9_MW_ST Kahe_LSFO_78.1_MW_ST Kahe_LSFO_82.1_MW_ST Kahe_LSFO_87.2_MW_ST Kahuku_30_MW_WT Kalaeloa_107_MW_CC_cogen Kalaeloa_5_MW_PV Kawailoa_69_MW_WT Reciprocating SCCT Solar_210_MW_PV Tesoro_LSFO_20_MW_GT_cogen Waiau_High-Sulfur-Diesel_51.2_MW_GT Waiau_LSFO_47.2_MW_ST Waiau_LSFO_47.7_MW_ST Waiau_LSFO_51.8_MW_ST Waiau_LSFO_51.9_MW_ST Waiau_LSFO_77.8_MW_ST;
+param hydrogen_electrolyzer_life_years := 40;
+param battery_efficiency := 0.75;
+param rps_target := 2040 0.7 2020 0.3 2045 1.0 2030 0.4 2015 0.15;
+param hydrogen_liquifier_mwh_per_kg := 0.01;
+param g_full_load_heat_rate := Chevron_LSFO_3.2_MW_GT_cogen 5.62349004372 SCCT 10.112 Kahe_LSFO_77.9_MW_ST 10.2377364047 CIP_Biodiesel_113_MW_GT 18.6266598806 Reciprocating 8.443 Kahe_LSFO_128.7_MW_ST 10.2377364047 Chevron_LSFO_3_MW_GT_cogen 5.62347206602 Waiau_LSFO_47.2_MW_ST 10.0552906363 Kahe_LSFO_82.1_MW_ST 10.2377364047 Kahe_LSFO_78.1_MW_ST 10.2377364047 Waiau_LSFO_47.7_MW_ST 10.0552906363 AES_Coal_180_MW_ST 10.1069046473 Waiau_LSFO_51.8_MW_ST 10.0552906363 Honolulu_LSFO_51.7_MW_ST 14.1906747143 CCCT 7.643 Waiau_LSFO_77.8_MW_ST 10.0552906363 Waiau_LSFO_51.9_MW_ST 10.0552906363 Kahe_LSFO_128.1_MW_ST 10.2377364047 Tesoro_LSFO_20_MW_GT_cogen 4.34567610209 Kahe_LSFO_87.2_MW_ST 10.2377364047 Waiau_High-Sulfur-Diesel_51.2_MW_GT 19.0488633949 Kalaeloa_107_MW_CC_cogen 4.45319092422 Honolulu_LSFO_48.6_MW_ST 14.1906747143;
+param g_is_variable := Waiau_LSFO_47.7_MW_ST 0 Chevron_LSFO_3.2_MW_GT_cogen 0 SCCT 0 Kahe_LSFO_77.9_MW_ST 0 CIP_Biodiesel_113_MW_GT 0 Reciprocating 0 HPower_MLG_60_MW_ST 0 Kalaeloa_5_MW_PV 1 DistPV_peak 1 Chevron_LSFO_3_MW_GT_cogen 0 Waiau_LSFO_47.2_MW_ST 0 Kahe_LSFO_82.1_MW_ST 0 Kahe_LSFO_78.1_MW_ST 0 Kawailoa_69_MW_WT 1 AES_Coal_180_MW_ST 0 Waiau_LSFO_51.8_MW_ST 0 Honolulu_LSFO_51.7_MW_ST 0 CCCT 0 Waiau_LSFO_77.8_MW_ST 0 Solar_210_MW_PV 1 Kahe_LSFO_128.7_MW_ST 0 Kahuku_30_MW_WT 1 Waiau_LSFO_51.9_MW_ST 0 Kahe_LSFO_128.1_MW_ST 0 Tesoro_LSFO_20_MW_GT_cogen 0 Kahe_LSFO_87.2_MW_ST 0 Waiau_High-Sulfur-Diesel_51.2_MW_GT 0 Kalaeloa_107_MW_CC_cogen 0 Honolulu_LSFO_48.6_MW_ST 0;
+param g_fixed_o_m := 
+ SCCT 2021 22014.9993896
+ CCCT 2021 63775.0015259
+ Reciprocating 2021 10140.0003433
+ DistPV_peak 2037 0.0
+ SCCT 2037 22014.9993896
+ CCCT 2037 63775.0015259
+ Reciprocating 2037 10140.0003433
+ DistPV_peak 2021 0.0
+;
+set G_MULTI_FUELS[Kahe_LSFO_87.2_MW_ST] := LSFO-Diesel-Blend Diesel Biodiesel LNG LSFO;
+set G_MULTI_FUELS[Kahe_LSFO_77.9_MW_ST] := LNG LSFO LSFO-Diesel-Blend Biodiesel Diesel;
+set G_MULTI_FUELS[Chevron_LSFO_3_MW_GT_cogen] := Biodiesel Diesel LSFO-Diesel-Blend LSFO LNG;
+set G_MULTI_FUELS[Waiau_LSFO_47.2_MW_ST] := LNG LSFO LSFO-Diesel-Blend Biodiesel Diesel;
+set G_MULTI_FUELS[Waiau_LSFO_51.8_MW_ST] := LSFO-Diesel-Blend Biodiesel Diesel LNG LSFO;
+set G_MULTI_FUELS[Kahe_LSFO_128.1_MW_ST] := LNG LSFO LSFO-Diesel-Blend Biodiesel Diesel;
+set G_MULTI_FUELS[Kalaeloa_107_MW_CC_cogen] := LSFO LNG Biodiesel Diesel LSFO-Diesel-Blend;
+set G_MULTI_FUELS[SCCT] := Diesel Biodiesel LNG;
+set G_MULTI_FUELS[Waiau_LSFO_47.7_MW_ST] := LSFO LNG Diesel Biodiesel LSFO-Diesel-Blend;
+set G_MULTI_FUELS[Reciprocating] := Biodiesel Diesel LNG;
+set G_MULTI_FUELS[Kahe_LSFO_128.7_MW_ST] := Diesel Biodiesel LSFO-Diesel-Blend LSFO LNG;
+set G_MULTI_FUELS[Honolulu_LSFO_51.7_MW_ST] := Biodiesel Diesel LSFO-Diesel-Blend LSFO LNG;
+set G_MULTI_FUELS[Waiau_LSFO_77.8_MW_ST] := LSFO LNG Biodiesel Diesel LSFO-Diesel-Blend;
+set G_MULTI_FUELS[Waiau_High-Sulfur-Diesel_51.2_MW_GT] := LNG Biodiesel Diesel;
+set G_MULTI_FUELS[Chevron_LSFO_3.2_MW_GT_cogen] := Biodiesel Diesel LSFO-Diesel-Blend LSFO LNG;
+set G_MULTI_FUELS[Kahe_LSFO_82.1_MW_ST] := Diesel Biodiesel LSFO-Diesel-Blend LSFO LNG;
+set G_MULTI_FUELS[Waiau_LSFO_51.9_MW_ST] := Diesel Biodiesel LSFO-Diesel-Blend LSFO LNG;
+set G_MULTI_FUELS[CIP_Biodiesel_113_MW_GT] := LNG Diesel Biodiesel;
+set G_MULTI_FUELS[Honolulu_LSFO_48.6_MW_ST] := LSFO LNG Biodiesel Diesel LSFO-Diesel-Blend;
+set G_MULTI_FUELS[Tesoro_LSFO_20_MW_GT_cogen] := LSFO-Diesel-Blend Biodiesel Diesel LNG LSFO;
+set G_MULTI_FUELS[Kahe_LSFO_78.1_MW_ST] := LSFO-Diesel-Blend Biodiesel Diesel LNG LSFO;
+set G_MULTI_FUELS[AES_Coal_180_MW_ST] := Coal LSFO-Diesel-Blend Biodiesel Diesel Pellet-Biomass LNG LSFO;
+set G_MULTI_FUELS[CCCT] := LNG Biodiesel Diesel;
+param f_upstream_co2_intensity := LSFO 0.0 Biodiesel 0.0 Diesel 0.0 LSFO-Diesel-Blend 0.0 Coal 0.0 Pellet-Biomass 0.0 LNG 0.0;
+param hydrogen_fuel_cell_life_years := 15;
+param tp_timestamp := 210703 "2021-07-15-03:00" 210721 "2021-07-15-21:00" 210718 "2021-07-15-18:00" 210715 "2021-07-15-15:00" 370721 "2037-07-15-21:00" 210700 "2021-07-15-00:00" 370700 "2037-07-15-00:00" 210706 "2021-07-15-06:00" 370703 "2037-07-15-03:00" 210712 "2021-07-15-12:00" 370706 "2037-07-15-06:00" 210709 "2021-07-15-09:00" 370712 "2037-07-15-12:00" 370715 "2037-07-15-15:00" 370718 "2037-07-15-18:00" 370709 "2037-07-15-09:00";
+param ts_num_tps := 2107 8 3707 8;
+param g_is_cogen := Waiau_LSFO_47.7_MW_ST 0 Chevron_LSFO_3.2_MW_GT_cogen 1 SCCT 0 Kahe_LSFO_77.9_MW_ST 0 CIP_Biodiesel_113_MW_GT 0 Reciprocating 0 HPower_MLG_60_MW_ST 0 Kalaeloa_5_MW_PV 0 DistPV_peak 0 Chevron_LSFO_3_MW_GT_cogen 1 Waiau_LSFO_47.2_MW_ST 0 Kahe_LSFO_82.1_MW_ST 0 Kahe_LSFO_78.1_MW_ST 0 Kawailoa_69_MW_WT 0 AES_Coal_180_MW_ST 0 Waiau_LSFO_51.8_MW_ST 0 Honolulu_LSFO_51.7_MW_ST 0 CCCT 0 Waiau_LSFO_77.8_MW_ST 0 Solar_210_MW_PV 0 Kahe_LSFO_128.7_MW_ST 0 Kahuku_30_MW_WT 0 Waiau_LSFO_51.9_MW_ST 0 Kahe_LSFO_128.1_MW_ST 0 Tesoro_LSFO_20_MW_GT_cogen 1 Kahe_LSFO_87.2_MW_ST 0 Waiau_High-Sulfur-Diesel_51.2_MW_GT 0 Kalaeloa_107_MW_CC_cogen 1 Honolulu_LSFO_48.6_MW_ST 0;
+param period_start := 2021 2021 2037 2037;
+set PROJECTS := Oahu_AES_GEN1 Oahu_CCCT Oahu_CIP_CIP1 Oahu_Chevron_GEN4 Oahu_Chevron_GEN1_GEN2_GEN3 Oahu_DistPV_peak_1_na Oahu_HPower_GEN1 Oahu_Honolulu_H8 Oahu_Honolulu_H9 Oahu_Kahe_K5 Oahu_Kahe_K6 Oahu_Kahe_K1 Oahu_Kahe_K2 Oahu_Kahe_K3 Oahu_Kahe_K4 Oahu_Kahuku_1 Oahu_Kalaeloa_CC1_CC2 Oahu_Kalaeloa_KAS2 Oahu_Kawailoa_1 Oahu_Reciprocating Oahu_SCCT Oahu_Solar_DistPV Oahu_Tesoro_GEN1 Oahu_Waiau_W10_W9 Oahu_Waiau_W3 Oahu_Waiau_W4 Oahu_Waiau_W6 Oahu_Waiau_W5 Oahu_Waiau_W7_W8;
+param lz_demand_mw := 
+ Oahu 210718 985.847500803
+ Oahu 210703 494.563927233
+ Oahu 210709 896.310451629
+ Oahu 210715 953.289769907
+ Oahu 210721 903.460794621
+ Oahu 370715 947.790777623
+ Oahu 370718 981.20006576
+ Oahu 210706 612.268493456
+ Oahu 370703 477.06682259
+ Oahu 210712 935.295621179
+ Oahu 370721 896.658510504
+ Oahu 210700 586.979436914
+ Oahu 370706 597.849987138
+ Oahu 370700 571.899487717
+ Oahu 370712 929.325986524
+ Oahu 370709 889.321148141
+;
+set RFM_SUPPLY_TIERS := ('Hawaii_Biodiesel', 2021, 'base') ('Hawaii_Biodiesel', 2037, 'base') ('Hawaii_Coal', 2021, 'base') ('Hawaii_Coal', 2037, 'base') ('Hawaii_Diesel', 2021, 'base') ('Hawaii_Diesel', 2037, 'base') ('Hawaii_LNG', 2021, 'bulk') ('Hawaii_LNG', 2021, 'container') ('Hawaii_LNG', 2037, 'bulk') ('Hawaii_LNG', 2037, 'container') ('Hawaii_LSFO', 2021, 'base') ('Hawaii_LSFO', 2037, 'base') ('Hawaii_LSFO-Diesel-Blend', 2021, 'base') ('Hawaii_LSFO-Diesel-Blend', 2037, 'base') ('Hawaii_Pellet-Biomass', 2021, 'base') ('Hawaii_Pellet-Biomass', 2037, 'base');
+param g_max_age := Waiau_LSFO_47.7_MW_ST 67.0 Chevron_LSFO_3.2_MW_GT_cogen 49.0 SCCT 30.0 Kahe_LSFO_77.9_MW_ST 60.0 CIP_Biodiesel_113_MW_GT 51.0 Reciprocating 30.0 HPower_MLG_60_MW_ST 71.0 Kalaeloa_5_MW_PV 48.0 DistPV_peak 25.0 Chevron_LSFO_3_MW_GT_cogen 70.0 Waiau_LSFO_47.2_MW_ST 70.0 Kahe_LSFO_82.1_MW_ST 54.0 Kahe_LSFO_78.1_MW_ST 59.0 Kawailoa_69_MW_WT 48.0 AES_Coal_180_MW_ST 68.0 Waiau_LSFO_51.8_MW_ST 67.0 Honolulu_LSFO_51.7_MW_ST 57.0 CCCT 30.0 Waiau_LSFO_77.8_MW_ST 62.0 Solar_210_MW_PV 47.0 Kahe_LSFO_128.7_MW_ST 41.0 Kahuku_30_MW_WT 49.0 Waiau_LSFO_51.9_MW_ST 69.0 Kahe_LSFO_128.1_MW_ST 48.0 Tesoro_LSFO_20_MW_GT_cogen 78.0 Kahe_LSFO_87.2_MW_ST 52.0 Waiau_High-Sulfur-Diesel_51.2_MW_GT 87.0 Kalaeloa_107_MW_CC_cogen 69.0 Honolulu_LSFO_48.6_MW_ST 60.0;
+param period_end := 2021 2036 2037 2052;
+param liquid_hydrogen_tank_life_years := 40;
+param hydrogen_liquifier_variable_cost_per_kg := 0.0;
+param proj_overnight_cost := 
+ Oahu_Waiau_W10_W9 1973 1518750.0
+ Oahu_Kahuku_1 2011 9846000.0
+ Oahu_Waiau_W4 1950 3532000.0
+ Oahu_Waiau_W5 1959 3532000.0
+ Oahu_Kawailoa_1 2012 9846000.0
+ Oahu_Kahe_K2 1964 3532000.0
+ Oahu_Kalaeloa_CC1_CC2 1991 2649000.0
+ Oahu_Solar_DistPV 2013 6865000.0
+ Oahu_Waiau_W7_W8 1966 3532000.0
+ Oahu_Honolulu_H8 1954 3532000.0
+ Oahu_Kahe_K4 1972 3532000.0
+ Oahu_CIP_CIP1 2009 1518750.0
+ Oahu_Waiau_W6 1961 3532000.0
+ Oahu_Chevron_GEN1_GEN2_GEN3 1990 1518750.0
+ Oahu_Tesoro_GEN1 1982 1518750.0
+ Oahu_Kahe_K3 1970 3532000.0
+ Oahu_Kahe_K5 1974 3532000.0
+ Oahu_Kahe_K6 1981 3532000.0
+ Oahu_Chevron_GEN4 2011 1518750.0
+ Oahu_Kalaeloa_KAS2 2012 4162000.0
+ Oahu_Honolulu_H9 1957 3532000.0
+ Oahu_Kalaeloa_CC1_CC2 1989 2649000.0
+ Oahu_AES_GEN1 1992 2925000.0
+ Oahu_Kahe_K1 1963 3532000.0
+ Oahu_HPower_GEN1 1989 2649000.0
+ Oahu_Waiau_W3 1947 3532000.0
+ Oahu_Waiau_W7_W8 1968 3532000.0
+;
+param hydrogen_fuel_cell_capital_cost_per_mw := 966401.517732;
+set REGIONAL_FUEL_MARKET := Hawaii_LNG Hawaii_LSFO-Diesel-Blend Hawaii_Pellet-Biomass Hawaii_Coal Hawaii_LSFO Hawaii_Diesel Hawaii_Biodiesel;
+param hydrogen_liquifier_life_years := 30;
+param proj_fixed_om := 
+ Oahu_Waiau_W10_W9 1973 7515.0
+ Oahu_Kahuku_1 2011 223070.0
+ Oahu_Waiau_W4 1950 64040.0
+ Oahu_Waiau_W5 1959 64040.0
+ Oahu_Kawailoa_1 2012 223070.0
+ Oahu_Kahe_K2 1964 64040.0
+ Oahu_Kalaeloa_CC1_CC2 1991 48030.0
+ Oahu_Solar_DistPV 2013 0.0
+ Oahu_Waiau_W7_W8 1966 64040.0
+ Oahu_Honolulu_H8 1954 64040.0
+ Oahu_Kahe_K4 1972 64040.0
+ Oahu_CIP_CIP1 2009 7515.0
+ Oahu_Waiau_W6 1961 64040.0
+ Oahu_Chevron_GEN1_GEN2_GEN3 1990 7515.0
+ Oahu_Tesoro_GEN1 1982 7515.0
+ Oahu_Kahe_K3 1970 64040.0
+ Oahu_Kahe_K5 1974 64040.0
+ Oahu_Kahe_K6 1981 64040.0
+ Oahu_Chevron_GEN4 2011 7515.0
+ Oahu_Kalaeloa_KAS2 2012 41281.0
+ Oahu_Honolulu_H9 1957 64040.0
+ Oahu_Kalaeloa_CC1_CC2 1989 48030.0
+ Oahu_AES_GEN1 1992 31180.0
+ Oahu_Kahe_K1 1963 64040.0
+ Oahu_HPower_GEN1 1989 48030.0
+ Oahu_Waiau_W3 1947 64040.0
+ Oahu_Waiau_W7_W8 1968 64040.0
+;
+param g_dbid := Waiau_LSFO_47.7_MW_ST "Waiau_LSFO_47.7_MW_ST" Chevron_LSFO_3.2_MW_GT_cogen "Chevron_LSFO_3.2_MW_GT_cogen" SCCT "SCCT" Kahe_LSFO_77.9_MW_ST "Kahe_LSFO_77.9_MW_ST" CIP_Biodiesel_113_MW_GT "CIP_Biodiesel_113_MW_GT" Reciprocating "Reciprocating" HPower_MLG_60_MW_ST "HPower_MLG_60_MW_ST" Kalaeloa_5_MW_PV "Kalaeloa_5_MW_PV" DistPV_peak "DistPV_peak" Chevron_LSFO_3_MW_GT_cogen "Chevron_LSFO_3_MW_GT_cogen" Waiau_LSFO_47.2_MW_ST "Waiau_LSFO_47.2_MW_ST" Kahe_LSFO_82.1_MW_ST "Kahe_LSFO_82.1_MW_ST" Kahe_LSFO_78.1_MW_ST "Kahe_LSFO_78.1_MW_ST" Kawailoa_69_MW_WT "Kawailoa_69_MW_WT" AES_Coal_180_MW_ST "AES_Coal_180_MW_ST" Waiau_LSFO_51.8_MW_ST "Waiau_LSFO_51.8_MW_ST" Honolulu_LSFO_51.7_MW_ST "Honolulu_LSFO_51.7_MW_ST" CCCT "CCCT" Waiau_LSFO_77.8_MW_ST "Waiau_LSFO_77.8_MW_ST" Solar_210_MW_PV "Solar_210_MW_PV" Kahe_LSFO_128.7_MW_ST "Kahe_LSFO_128.7_MW_ST" Kahuku_30_MW_WT "Kahuku_30_MW_WT" Waiau_LSFO_51.9_MW_ST "Waiau_LSFO_51.9_MW_ST" Kahe_LSFO_128.1_MW_ST "Kahe_LSFO_128.1_MW_ST" Tesoro_LSFO_20_MW_GT_cogen "Tesoro_LSFO_20_MW_GT_cogen" Kahe_LSFO_87.2_MW_ST "Kahe_LSFO_87.2_MW_ST" Waiau_High-Sulfur-Diesel_51.2_MW_GT "Waiau_High-Sulfur-Diesel_51.2_MW_GT" Kalaeloa_107_MW_CC_cogen "Kalaeloa_107_MW_CC_cogen" Honolulu_LSFO_48.6_MW_ST "Honolulu_LSFO_48.6_MW_ST";
+param base_financial_year := 2015;
+param hydrogen_fuel_cell_fixed_cost_per_mw_year := 32094.515349;
+param g_overnight_cost := 
+ SCCT 2021 2800000.0
+ CCCT 2021 3510000.0
+ Reciprocating 2021 2702000.0
+ DistPV_peak 2037 4000000.0
+ SCCT 2037 2800000.0
+ CCCT 2037 3510000.0
+ Reciprocating 2037 2702000.0
+ DistPV_peak 2021 4000000.0
+;
+param g_energy_source := Waiau_LSFO_47.7_MW_ST "multiple" Chevron_LSFO_3.2_MW_GT_cogen "multiple" SCCT "multiple" Kahe_LSFO_77.9_MW_ST "multiple" CIP_Biodiesel_113_MW_GT "multiple" Reciprocating "multiple" HPower_MLG_60_MW_ST "MSW" Kalaeloa_5_MW_PV "SUN" DistPV_peak "SUN" Chevron_LSFO_3_MW_GT_cogen "multiple" Waiau_LSFO_47.2_MW_ST "multiple" Kahe_LSFO_82.1_MW_ST "multiple" Kahe_LSFO_78.1_MW_ST "multiple" Kawailoa_69_MW_WT "WND" AES_Coal_180_MW_ST "multiple" Waiau_LSFO_51.8_MW_ST "multiple" Honolulu_LSFO_51.7_MW_ST "multiple" CCCT "multiple" Waiau_LSFO_77.8_MW_ST "multiple" Solar_210_MW_PV "SUN" Kahe_LSFO_128.7_MW_ST "multiple" Kahuku_30_MW_WT "WND" Waiau_LSFO_51.9_MW_ST "multiple" Kahe_LSFO_128.1_MW_ST "multiple" Tesoro_LSFO_20_MW_GT_cogen "multiple" Kahe_LSFO_87.2_MW_ST "multiple" Waiau_High-Sulfur-Diesel_51.2_MW_GT "multiple" Kalaeloa_107_MW_CC_cogen "multiple" Honolulu_LSFO_48.6_MW_ST "multiple";
+param proj_existing_cap := 
+ Oahu_Waiau_W10_W9 1973 102.4
+ Oahu_Kahuku_1 2011 30.0
+ Oahu_Waiau_W4 1950 47.7
+ Oahu_Waiau_W5 1959 51.9
+ Oahu_Kawailoa_1 2012 69.0
+ Oahu_Kahe_K2 1964 78.1
+ Oahu_Kalaeloa_CC1_CC2 1991 107.0
+ Oahu_Solar_DistPV 2013 210.0
+ Oahu_Waiau_W7_W8 1966 77.8
+ Oahu_Honolulu_H8 1954 48.6
+ Oahu_Kahe_K4 1972 87.2
+ Oahu_CIP_CIP1 2009 113.0
+ Oahu_Waiau_W6 1961 51.8
+ Oahu_Chevron_GEN1_GEN2_GEN3 1990 9.0
+ Oahu_Tesoro_GEN1 1982 20.0
+ Oahu_Kahe_K3 1970 82.1
+ Oahu_Kahe_K5 1974 128.1
+ Oahu_Kahe_K6 1981 128.7
+ Oahu_Chevron_GEN4 2011 3.2
+ Oahu_Kalaeloa_KAS2 2012 5.0
+ Oahu_Honolulu_H9 1957 51.7
+ Oahu_Kalaeloa_CC1_CC2 1989 107.0
+ Oahu_AES_GEN1 1992 180.0
+ Oahu_Kahe_K1 1963 77.9
+ Oahu_HPower_GEN1 1989 60.0
+ Oahu_Waiau_W3 1947 47.2
+ Oahu_Waiau_W7_W8 1968 77.8
+;
+param g_forced_outage_rate := Waiau_LSFO_47.7_MW_ST 0.04 Chevron_LSFO_3.2_MW_GT_cogen 0.04 SCCT 0.0399999991059 Kahe_LSFO_77.9_MW_ST 0.04 CIP_Biodiesel_113_MW_GT 0.04 Reciprocating 0.0399999991059 HPower_MLG_60_MW_ST 0.04 Kalaeloa_5_MW_PV 0.01 DistPV_peak 0.00999999977648 Chevron_LSFO_3_MW_GT_cogen 0.04 Waiau_LSFO_47.2_MW_ST 0.04 Kahe_LSFO_82.1_MW_ST 0.04 Kahe_LSFO_78.1_MW_ST 0.04 Kawailoa_69_MW_WT 0.05 AES_Coal_180_MW_ST 0.01 Waiau_LSFO_51.8_MW_ST 0.04 Honolulu_LSFO_51.7_MW_ST 0.04 CCCT 0.0399999991059 Waiau_LSFO_77.8_MW_ST 0.04 Solar_210_MW_PV 0.01 Kahe_LSFO_128.7_MW_ST 0.04 Kahuku_30_MW_WT 0.05 Waiau_LSFO_51.9_MW_ST 0.04 Kahe_LSFO_128.1_MW_ST 0.04 Tesoro_LSFO_20_MW_GT_cogen 0.04 Kahe_LSFO_87.2_MW_ST 0.04 Waiau_High-Sulfur-Diesel_51.2_MW_GT 0.04 Kalaeloa_107_MW_CC_cogen 0.04 Honolulu_LSFO_48.6_MW_ST 0.04;
+param ts_scale_to_period := 2107 5844.0 3707 5844.0;
+set LOAD_ZONES := Oahu;
+param hydrogen_liquifier_fixed_cost_per_kg_hour_year := 0.0;
+set GEN_TECH_WITH_UNIT_SIZES := Waiau_LSFO_47.7_MW_ST Chevron_LSFO_3.2_MW_GT_cogen Kahe_LSFO_77.9_MW_ST CIP_Biodiesel_113_MW_GT HPower_MLG_60_MW_ST Kalaeloa_5_MW_PV Kahe_LSFO_128.7_MW_ST Chevron_LSFO_3_MW_GT_cogen Waiau_LSFO_47.2_MW_ST Kahe_LSFO_82.1_MW_ST Kahe_LSFO_78.1_MW_ST Kawailoa_69_MW_WT AES_Coal_180_MW_ST Waiau_LSFO_51.8_MW_ST Honolulu_LSFO_51.7_MW_ST Waiau_LSFO_77.8_MW_ST Solar_210_MW_PV Kahuku_30_MW_WT Waiau_LSFO_51.9_MW_ST Kahe_LSFO_128.1_MW_ST Tesoro_LSFO_20_MW_GT_cogen Kahe_LSFO_87.2_MW_ST Waiau_High-Sulfur-Diesel_51.2_MW_GT Kalaeloa_107_MW_CC_cogen Honolulu_LSFO_48.6_MW_ST;
+param hydrogen_liquifier_capital_cost_per_kg_per_hour := 41948.5808714;
+param ph_capital_cost_per_mw := Lake_Wilson 3033333.33333;
+param g_is_flexible_baseload := Waiau_LSFO_47.7_MW_ST 0 Chevron_LSFO_3.2_MW_GT_cogen 0 SCCT 0 Kahe_LSFO_77.9_MW_ST 0 CIP_Biodiesel_113_MW_GT 0 Reciprocating 0 HPower_MLG_60_MW_ST 0 Kalaeloa_5_MW_PV 0 DistPV_peak 0 Chevron_LSFO_3_MW_GT_cogen 0 Waiau_LSFO_47.2_MW_ST 0 Kahe_LSFO_82.1_MW_ST 0 Kahe_LSFO_78.1_MW_ST 0 Kawailoa_69_MW_WT 0 AES_Coal_180_MW_ST 0 Waiau_LSFO_51.8_MW_ST 0 Honolulu_LSFO_51.7_MW_ST 0 CCCT 0 Waiau_LSFO_77.8_MW_ST 0 Solar_210_MW_PV 0 Kahe_LSFO_128.7_MW_ST 0 Kahuku_30_MW_WT 0 Waiau_LSFO_51.9_MW_ST 0 Kahe_LSFO_128.1_MW_ST 0 Tesoro_LSFO_20_MW_GT_cogen 0 Kahe_LSFO_87.2_MW_ST 0 Waiau_High-Sulfur-Diesel_51.2_MW_GT 0 Kalaeloa_107_MW_CC_cogen 0 Honolulu_LSFO_48.6_MW_ST 0;
+param interest_rate := 0.06;
+param proj_gen_tech := Oahu_Honolulu_H8 "Honolulu_LSFO_48.6_MW_ST" Oahu_HPower_GEN1 "HPower_MLG_60_MW_ST" Oahu_Kalaeloa_CC1_CC2 "Kalaeloa_107_MW_CC_cogen" Oahu_CCCT "CCCT" Oahu_Kahe_K1 "Kahe_LSFO_77.9_MW_ST" Oahu_Kahe_K3 "Kahe_LSFO_82.1_MW_ST" Oahu_Kahe_K2 "Kahe_LSFO_78.1_MW_ST" Oahu_Kahe_K5 "Kahe_LSFO_128.1_MW_ST" Oahu_Kahe_K4 "Kahe_LSFO_87.2_MW_ST" Oahu_Kahe_K6 "Kahe_LSFO_128.7_MW_ST" Oahu_SCCT "SCCT" Oahu_Chevron_GEN4 "Chevron_LSFO_3.2_MW_GT_cogen" Oahu_Waiau_W3 "Waiau_LSFO_47.2_MW_ST" Oahu_Waiau_W6 "Waiau_LSFO_51.8_MW_ST" Oahu_Waiau_W4 "Waiau_LSFO_47.7_MW_ST" Oahu_Waiau_W5 "Waiau_LSFO_51.9_MW_ST" Oahu_AES_GEN1 "AES_Coal_180_MW_ST" Oahu_Kawailoa_1 "Kawailoa_69_MW_WT" Oahu_Kahuku_1 "Kahuku_30_MW_WT" Oahu_Tesoro_GEN1 "Tesoro_LSFO_20_MW_GT_cogen" Oahu_CIP_CIP1 "CIP_Biodiesel_113_MW_GT" Oahu_Waiau_W10_W9 "Waiau_High-Sulfur-Diesel_51.2_MW_GT" Oahu_DistPV_peak_1_na "DistPV_peak" Oahu_Chevron_GEN1_GEN2_GEN3 "Chevron_LSFO_3_MW_GT_cogen" Oahu_Reciprocating "Reciprocating" Oahu_Kalaeloa_KAS2 "Kalaeloa_5_MW_PV" Oahu_Honolulu_H9 "Honolulu_LSFO_51.7_MW_ST" Oahu_Solar_DistPV "Solar_210_MW_PV" Oahu_Waiau_W7_W8 "Waiau_LSFO_77.8_MW_ST";
+param proj_connect_cost_per_mw := Oahu_Honolulu_H8 0.0 Oahu_HPower_GEN1 0.0 Oahu_Kalaeloa_CC1_CC2 0.0 Oahu_CCCT 137000.0 Oahu_Kahe_K1 0.0 Oahu_Kahe_K3 0.0 Oahu_Kahe_K2 0.0 Oahu_Kahe_K5 0.0 Oahu_Kahe_K4 0.0 Oahu_Kahe_K6 0.0 Oahu_SCCT 124000.0 Oahu_Chevron_GEN4 0.0 Oahu_Waiau_W3 0.0 Oahu_Waiau_W6 0.0 Oahu_Waiau_W4 0.0 Oahu_Waiau_W5 0.0 Oahu_AES_GEN1 0.0 Oahu_Kawailoa_1 0.0 Oahu_Kahuku_1 0.0 Oahu_Tesoro_GEN1 0.0 Oahu_CIP_CIP1 0.0 Oahu_Waiau_W10_W9 0.0 Oahu_DistPV_peak_1_na 0.0 Oahu_Chevron_GEN1_GEN2_GEN3 0.0 Oahu_Reciprocating 108000.0 Oahu_Kalaeloa_KAS2 0.0 Oahu_Honolulu_H9 0.0 Oahu_Solar_DistPV 0.0 Oahu_Waiau_W7_W8 0.0;
+param battery_capital_cost_per_mwh_capacity := 603417.713542;
+param tp_ts := 210703 2107 210721 2107 210718 2107 210715 2107 370721 3707 210700 2107 370700 3707 210706 2107 370703 3707 210712 2107 370706 3707 210709 2107 370712 3707 370715 3707 370718 3707 370709 3707;
+param g_scheduled_outage_rate := Waiau_LSFO_47.7_MW_ST 0.0 Chevron_LSFO_3.2_MW_GT_cogen 0.358355715588 SCCT 0.0384600013494 Kahe_LSFO_77.9_MW_ST 0.0 CIP_Biodiesel_113_MW_GT 0.0 Reciprocating 0.0384600013494 HPower_MLG_60_MW_ST 0.0 Kalaeloa_5_MW_PV 0.0 DistPV_peak 0.00460000010207 Chevron_LSFO_3_MW_GT_cogen 0.164655600972 Waiau_LSFO_47.2_MW_ST 0.0 Kahe_LSFO_82.1_MW_ST 0.0 Kahe_LSFO_78.1_MW_ST 0.0 Kawailoa_69_MW_WT 0.0 AES_Coal_180_MW_ST 0.0 Waiau_LSFO_51.8_MW_ST 0.0 Honolulu_LSFO_51.7_MW_ST 0.0 CCCT 0.0384600013494 Waiau_LSFO_77.8_MW_ST 0.0 Solar_210_MW_PV 0.0 Kahe_LSFO_128.7_MW_ST 0.0 Kahuku_30_MW_WT 0.0 Waiau_LSFO_51.9_MW_ST 0.0 Kahe_LSFO_128.1_MW_ST 0.0 Tesoro_LSFO_20_MW_GT_cogen 0.185430947964 Kahe_LSFO_87.2_MW_ST 0.0 Waiau_High-Sulfur-Diesel_51.2_MW_GT 0.0 Kalaeloa_107_MW_CC_cogen 0.264210952392 Honolulu_LSFO_48.6_MW_ST 0.0;
+param hydrogen_electrolyzer_fixed_cost_per_mw_year := 76842.1531621;
+set TIMEPOINTS := 210700 210703 210706 210709 210712 210715 210718 210721 370700 370703 370706 370709 370712 370715 370718 370721;
+set PERIODS := 2021 2037;
+param hydrogen_fuel_cell_variable_cost_per_mwh := 0.0;
+set PROJECTS_CAP_LIMITED := Oahu_DistPV_peak_1_na;
+param ph_load_zone := Lake_Wilson "Oahu";

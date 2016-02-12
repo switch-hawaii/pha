@@ -1,0 +1,18 @@
+param: rfm_supply_tier_cost	rfm_supply_tier_limit	rfm_supply_tier_fixed_cost :=
+Hawaii_Biodiesel	2021	base	70.8301509688	.	0.0
+Hawaii_Biodiesel	2037	base	101.106919049	.	0.0
+Hawaii_Coal	2021	base	2.848244375	.	0.0
+Hawaii_Coal	2037	base	3.289506875	.	0.0
+Hawaii_Diesel	2021	base	61.6131509688	.	0.0
+Hawaii_Diesel	2037	base	91.8899190485	.	0.0
+Hawaii_LNG	2021	bulk	6.71415797842	43446735.1	1.75
+Hawaii_LNG	2021	container	18.1851316487	.	0.0
+Hawaii_LNG	2037	bulk	12.5625644343	43446735.1	1.75
+Hawaii_LNG	2037	container	23.0588036953	.	0.0
+Hawaii_LSFO	2021	base	55.8787748256	.	0.0
+Hawaii_LSFO	2037	base	83.3376643545	.	0.0
+Hawaii_LSFO-Diesel-Blend	2021	base	58.1808966349	.	0.0
+Hawaii_LSFO-Diesel-Blend	2037	base	86.7710512754	.	0.0
+Hawaii_Pellet-Biomass	2021	base	13.658125	.	0.0
+Hawaii_Pellet-Biomass	2037	base	13.658125	.	0.0
+;

@@ -1,0 +1,34 @@
+param: rfm_supply_tier_cost	rfm_supply_tier_limit	rfm_supply_tier_fixed_cost :=
+Hawaii_Biodiesel	2021	base	35.9731124339	.	0.0
+Hawaii_Biodiesel	2029	base	53.0342029499	.	0.0
+Hawaii_Biodiesel	2037	base	45.4201709353	.	0.0
+Hawaii_Biodiesel	2045	base	73.397819606	.	0.0
+Hawaii_Coal	2021	base	2.848244375	.	0.0
+Hawaii_Coal	2029	base	3.089888125	.	0.0
+Hawaii_Coal	2037	base	3.289506875	.	0.0
+Hawaii_Coal	2045	base	3.512239375	.	0.0
+Hawaii_Diesel	2021	base	26.7561124339	.	0.0
+Hawaii_Diesel	2029	base	43.8172029499	.	0.0
+Hawaii_Diesel	2037	base	36.2031709353	.	0.0
+Hawaii_Diesel	2045	base	64.180819606	.	0.0
+Hawaii_LNG	2021	bulk	8.03141530351	43446735.1	1.75
+Hawaii_LNG	2021	container	19.2828460863	.	0.0
+Hawaii_LNG	2029	container	18.9871669078	.	0.0
+Hawaii_LNG	2029	bulk	7.67660028941	43446735.1	1.75
+Hawaii_LNG	2037	container	21.7441462321	.	0.0
+Hawaii_LNG	2037	bulk	10.9849754785	43446735.1	1.75
+Hawaii_LNG	2045	bulk	16.7469050461	43446735.1	1.75
+Hawaii_LNG	2045	container	26.5457542051	.	0.0
+Hawaii_LSFO	2021	base	24.2659036001	.	0.0
+Hawaii_LSFO	2029	base	39.739107295	.	0.0
+Hawaii_LSFO	2037	base	32.8337182056	.	0.0
+Hawaii_LSFO	2045	base	58.2074688682	.	0.0
+Hawaii_LSFO-Diesel-Blend	2021	base	25.265622475	.	0.0
+Hawaii_LSFO-Diesel-Blend	2029	base	41.3762989813	.	0.0
+Hawaii_LSFO-Diesel-Blend	2037	base	34.1864182066	.	0.0
+Hawaii_LSFO-Diesel-Blend	2045	base	60.6055293834	.	0.0
+Hawaii_Pellet-Biomass	2021	base	13.658125	.	0.0
+Hawaii_Pellet-Biomass	2029	base	13.658125	.	0.0
+Hawaii_Pellet-Biomass	2037	base	13.658125	.	0.0
+Hawaii_Pellet-Biomass	2045	base	13.658125	.	0.0
+;
