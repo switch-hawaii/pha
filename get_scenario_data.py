@@ -8,27 +8,6 @@ sys.path.append(path_to_core)
 
 import scenario_data, scenarios
 
-###########################
-# Scenario Definitions
-
-# definitions of standard scenarios (may also specify inputs_subdir to read in alternative data)
-# TODO: find a way to define the base scenario here, then apply the others as changes to it
-# Maybe allow each to start with --inherit_scenario <parent>? (to one level) 
-# (--scenario does this already)
-
-scenario_list = [
-    '--scenario_name 100_biofuel_0_dr --biofuel_limit 1.00 -n hydrogen -n demand_response_simple --ev_flat',
-    '--scenario_name 5_biofuel_0_dr --biofuel_limit 0.05 -n hydrogen -n demand_response_simple --ev_flat',
-    '--scenario_name 5_biofuel_hydrogen_0_dr --biofuel_limit 0.05 -n demand_response_simple --ev_flat',
-
-    '--scenario_name 5_biofuel_hydrogen --biofuel_limit 0.05',
-    '--scenario_name 100_biofuel --biofuel_limit 1.00 -n hydrogen',
-    '--scenario_name 5_biofuel --biofuel_limit 0.05 -n hydrogen',
-]
-
-with open('scenarios_to_run.txt', 'w') as f:
-    f.writelines(s + '\n' for s in scenario_list)
-
 scenarios.parser.add_argument('--skip_cf', action='store_true')
 scenarios.parser.add_argument('--time_sample')
 cmd_line_args = scenarios.cmd_line_args()
