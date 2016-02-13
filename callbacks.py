@@ -165,7 +165,7 @@ class testphextension(SingletonPlugin):
 rho_cost_multiplier = 1.0   # default value
 
 # based on pyomo_examples_11103/pysp/sizes/config/rhosetter.py and pyomo/pysp/ph.py
-def pysp_phrhosetter_callback(ph, scenario_tree, scenario):
+def ph_rhosetter_callback(ph, scenario_tree, scenario):
    
     m = scenario._instance
     
