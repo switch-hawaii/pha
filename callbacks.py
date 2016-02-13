@@ -18,7 +18,7 @@ build_vars = [
     "BuildElectrolyzerMW", "BuildLiquifierKgPerHour", "BuildLiquidHydrogenTankKg",
     "BuildFuelCellMW"
 ]
-inputs_dir = "inputs"
+inputs_dir = "inputs_tiny"
 
 class testphextension(SingletonPlugin):
 
@@ -170,7 +170,7 @@ def ph_rhosetter_callback(ph, scenario_tree, scenario):
     m = scenario._instance
     
     # read previously stored rho values (faster than calculating them each time)
-    with open(os.join(inputs_dir, "rhos.tsv"), "r") as f:
+    with open(os.path.join(inputs_dir, "rhos.tsv"), "r") as f:
         rhos={v: r 
             for row in f 
                 for v, r in row.split('\t')}
