@@ -16,9 +16,17 @@ ReferenceModel.dat file ("import ReferenceModel; ReferenceModel.load_dat_inputs(
 
 # define data location and size
 inputs_dir = "inputs"
-inputs_subdir = "pha_15"
-n_scenarios = 15
+pha_subdir = "pha"
+n_scenarios = 4
 n_digits = 4    # zero-padding in existing file names and scenario names
+
+build_vars = [
+    "BuildProj", "BuildBattery", 
+    "BuildPumpedHydroMW", "BuildAnyPumpedHydro",
+    "RFMSupplyTierActivate",
+    "BuildElectrolyzerMW", "BuildLiquifierKgPerHour", "BuildLiquidHydrogenTankKg",
+    "BuildFuelCellMW"
+]
 
 import sys, os, time, traceback
 
@@ -92,7 +100,7 @@ def load_dat_inputs():
     instance = model.create_instance(dat_file_name())
     
 def dat_file_dir():
-    return os.path.join(inputs_dir, inputs_subdir)
+    return os.path.join(inputs_dir, pha_subdir)
 
 def dat_file_name():
      return os.path.join(dat_file_dir(), "RootNode.dat")
@@ -153,13 +161,6 @@ def save_dat_files():
                 f.write("    {cn}[{dim}]\n".format(cn=cname, dim=indexing))
 
         # all build variables (and fuel market expansion) go in the Build stage
-        build_vars = [
-            "BuildProj", "BuildBattery", 
-            "BuildPumpedHydroMW", "BuildAnyPumpedHydro",
-            "RFMSupplyTierActivate",
-            "BuildElectrolyzerMW", "BuildLiquifierKgPerHour", "BuildLiquidHydrogenTankKg",
-            "BuildFuelCellMW"
-        ]
         f.write("set StageVariables[Build] := \n")
         for cn in build_vars:
             write_var_name(f, cn)
@@ -182,28 +183,59 @@ def save_dat_files():
         # note: this uses dummy variables for now; if real values are needed,
         # it may be possible to construct them by extracting all objective terms that 
         # involve the Build variables.
-        
+
+def save_rho_file():
+    print "calculating objective function coefficients for rho setters..."
+    m = instance
+
+    # initialize variables, if not already set
+    for var in m.component_map(Var):
+        for v in getattr(m, var).values():
+            if v.value is None:
+                # note: we're just using this to find d_objective / d_var,
+                # so it doesn't need to be realistic or even within the allowed bounds
+                # if the model is linear; 
+                v.value = 0.0
+
+    costs = []
+    baseval = value(m.Minimize_System_Cost)
+    # surprisingly slow, but it gets the job done
+    for var in build_vars:
+        print var
+        for v in getattr(m, var).values():
+            # perturb the value of each variable to find its coefficient in the objective function
+            v.value += 1; c = value(m.Minimize_System_Cost) - baseval; v.value -= 1
+            costs.append((v.cname(), c))
+    rho_file = os.path.join(inputs_dir, "rhos.tsv")
+    print "writing {}...".format(rho_file)
+    with open(rho_file, "w") as f:
+        f.writelines("\t".join(map(str, r))+"\n" for r in costs)
+    
+    
 def solve():
+    if instance is None:
+        raise RuntimeError("instance is not initialized; load_inputs() or load_dat_inputs() must be called before solve().")
     # can be accessed from interactive prompt via import ReferenceModel; ReferenceModel.solve()
     print "solving model..."
-    opt = SolverFactory("cplex", solver_io="nl")
+    opt = SolverFactory("cplex")# , solver_io="nl")
     # tell cplex to find an irreducible infeasible set (and report it)
     # opt.options['iisfind'] = 1
 
     # relax the integrality constraints, to allow commitment constraints to match up with 
     # number of units available
-    opt.options['mipgap'] = 0.001
-    # display more information during solve
+    # opt.options['mipgap'] = 0.001
+    # # display more information during solve
     # opt.options['display'] = 1
     # opt.options['bardisplay'] = 1
-    # opt.options['mipdisplay'] = 2
-    opt.options['primalopt'] = ""   # this is how you specify single-word arguments
-    opt.options['advance'] = 2
-    opt.options['threads'] = 1
+    # opt.options['mipdisplay'] = 1
+    # opt.options['primalopt'] = ""   # this is how you specify single-word arguments
+    # opt.options['advance'] = 2
+    # # opt.options['threads'] = 1
+    # opt.options['parallelmode'] = -1    # 1=opportunistic, 0 or 1=deterministic
 
     start = time.time()
     results = opt.solve(instance, keepfiles=False, tee=True, 
-        symbolic_solver_labels=True, suffixes=['urc', 'lrc', 'rc', 'dual'])
+        symbolic_solver_labels=True, suffixes=['dual', 'rc', 'urc', 'lrc'])
     print "Total time in solver: {t}s".format(t=time.time()-start)
 
     instance.solutions.load_from(results)
@@ -224,3 +256,4 @@ if __name__ == '__main__':
     # called directly from command line; save data and exit
     load_inputs()
     save_dat_files()
+    save_rho_file()

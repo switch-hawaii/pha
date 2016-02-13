@@ -1,0 +1,87 @@
+from pyomo.environ import *
+m = ConcreteModel()
+m.x = Var(within=NonNegativeIntegers)
+m.y = Var(within=NonNegativeReals)
+m.c = Constraint(rule = lambda m: m.x <= 100)
+m.o = Objective(rule = lambda m: 100*m.x - 50*m.y, sense=maximize)
+m.dual = Suffix(direction=Suffix.IMPORT)
+m.rc = Suffix(direction=Suffix.IMPORT)
+m.urc = Suffix(direction=Suffix.IMPORT)
+m.lrc = Suffix(direction=Suffix.IMPORT)
+
+opt = SolverFactory("cplex") #, solver_io="nl")
+#opt.options['primalopt'] = ""
+
+results = opt.solve(m, keepfiles=False, tee=True,
+        symbolic_solver_labels=True, suffixes=['dual', 'rc', 'urc', 'lrc'])
+m.solutions.load_from(results)
+
+# NOTE: cplex (without solver_io="nl") gives duals and rc's unless there are integer variables
+# cplex with solver_io="nl" always gives dual and never gives rc's. 
+m.dual.pprint()
+m.rc.pprint()
+m.urc.pprint()
+m.lrc.pprint()
+
+
+
+import pyomo.core.base.expr_coopr3 as ptypes
+is_expression
+def get_expr_coefficient(e, v):
+    """Find all coefficients for v in expression e."""
+    coeff = 0.0
+    if hasattr(e, '_numerator'):    # _ProductExpression
+        c = e._coef
+        for x in e._numerator:
+            if get_expr_coefficient(x, v) is not 0.0:
+                
+                
+            
+        coeff = coeff + sum(
+            e._coef * n / d for (n, d) in zip(e._numerator, e._denominator)
+        )
+        
+        for e2 in e._numerator:
+            fix_obj_expression(e2, status)
+        for e2 in e._denominator:
+            fix_obj_expression(e2, status)
+    elif hasattr(e, '_args'):
+        for e2 in e._args:
+            fix_obj_expression(e2, status)
+    elif hasattr(e, 'expr'):
+        fix_obj_expression(e.expr, status)
+    elif hasattr(e, 'is_constant') and e.is_constant():
+        pass    # numeric constant
+    else:
+        raise ValueError(
+            'Expression {e} does not have an expr, fixed or _args property, ' +
+            'so it cannot be fixed.'.format(e=e)
+        )
+
+    t = type(e)
+    if t is ptypes._SumExpression:
+        for (c, a) in zip(e._coef, e._args):
+            
+        
+ hasattr(e, _coeff)
+
+    
+    if hasattr(e, 'fixed'):
+        e.fixed = status      # see p. 171 of the Pyomo book
+    elif hasattr(e, '_numerator'):
+        for e2 in e._numerator:
+            fix_obj_expression(e2, status)
+        for e2 in e._denominator:
+            fix_obj_expression(e2, status)
+    elif hasattr(e, '_args'):
+        for e2 in e._args:
+            fix_obj_expression(e2, status)
+    elif hasattr(e, 'expr'):
+        fix_obj_expression(e.expr, status)
+    elif hasattr(e, 'is_constant') and e.is_constant():
+        pass    # numeric constant
+    else:
+        raise ValueError(
+            'Expression {e} does not have an expr, fixed or _args property, ' +
+            'so it cannot be fixed.'.format(e=e)
+        )

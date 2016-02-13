@@ -13,9 +13,9 @@ except ImportError:
 
 # get_scenario_data.py should already have been run, creating a folder with standard inputs
 
-inputs_dir = "inputs"
-pha_dir = os.path.join(inputs_dir, "pha_100_annual")
-n_scenarios = 100
+inputs_dir = "inputs_tiny"
+pha_dir = os.path.join(inputs_dir, "pha_15")
+n_scenarios = 15
 
 n_digits = 4 # len(str(n_scenarios-1))  # how many leading zeros to use for scenario names
 base_year = 2015
