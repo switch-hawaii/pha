@@ -1,0 +1,149 @@
+param ScenarioBasedData := False ;
+
+set Stages := Build Operate ;
+
+set Nodes := RootNode 
+    fuel_supply_curves_0000
+    fuel_supply_curves_0001
+    fuel_supply_curves_0002
+    fuel_supply_curves_0003
+    fuel_supply_curves_0004
+    fuel_supply_curves_0005
+    fuel_supply_curves_0006
+    fuel_supply_curves_0007
+    fuel_supply_curves_0008
+    fuel_supply_curves_0009
+    fuel_supply_curves_0010
+    fuel_supply_curves_0011
+    fuel_supply_curves_0012
+    fuel_supply_curves_0013
+    fuel_supply_curves_0014
+;
+
+param NodeStage := RootNode Build
+    fuel_supply_curves_0000 Operate
+    fuel_supply_curves_0001 Operate
+    fuel_supply_curves_0002 Operate
+    fuel_supply_curves_0003 Operate
+    fuel_supply_curves_0004 Operate
+    fuel_supply_curves_0005 Operate
+    fuel_supply_curves_0006 Operate
+    fuel_supply_curves_0007 Operate
+    fuel_supply_curves_0008 Operate
+    fuel_supply_curves_0009 Operate
+    fuel_supply_curves_0010 Operate
+    fuel_supply_curves_0011 Operate
+    fuel_supply_curves_0012 Operate
+    fuel_supply_curves_0013 Operate
+    fuel_supply_curves_0014 Operate
+;
+
+set Children[RootNode] := 
+    fuel_supply_curves_0000
+    fuel_supply_curves_0001
+    fuel_supply_curves_0002
+    fuel_supply_curves_0003
+    fuel_supply_curves_0004
+    fuel_supply_curves_0005
+    fuel_supply_curves_0006
+    fuel_supply_curves_0007
+    fuel_supply_curves_0008
+    fuel_supply_curves_0009
+    fuel_supply_curves_0010
+    fuel_supply_curves_0011
+    fuel_supply_curves_0012
+    fuel_supply_curves_0013
+    fuel_supply_curves_0014
+;
+
+param ConditionalProbability := RootNode 1.0
+    fuel_supply_curves_0000 0.0666666666667
+    fuel_supply_curves_0001 0.0666666666667
+    fuel_supply_curves_0002 0.0666666666667
+    fuel_supply_curves_0003 0.0666666666667
+    fuel_supply_curves_0004 0.0666666666667
+    fuel_supply_curves_0005 0.0666666666667
+    fuel_supply_curves_0006 0.0666666666667
+    fuel_supply_curves_0007 0.0666666666667
+    fuel_supply_curves_0008 0.0666666666667
+    fuel_supply_curves_0009 0.0666666666667
+    fuel_supply_curves_0010 0.0666666666667
+    fuel_supply_curves_0011 0.0666666666667
+    fuel_supply_curves_0012 0.0666666666667
+    fuel_supply_curves_0013 0.0666666666667
+    fuel_supply_curves_0014 0.0666666666667
+;
+
+set Scenarios :=  
+    Scenario_0000
+    Scenario_0001
+    Scenario_0002
+    Scenario_0003
+    Scenario_0004
+    Scenario_0005
+    Scenario_0006
+    Scenario_0007
+    Scenario_0008
+    Scenario_0009
+    Scenario_0010
+    Scenario_0011
+    Scenario_0012
+    Scenario_0013
+    Scenario_0014
+;
+
+param ScenarioLeafNode := 
+    Scenario_0000 fuel_supply_curves_0000
+    Scenario_0001 fuel_supply_curves_0001
+    Scenario_0002 fuel_supply_curves_0002
+    Scenario_0003 fuel_supply_curves_0003
+    Scenario_0004 fuel_supply_curves_0004
+    Scenario_0005 fuel_supply_curves_0005
+    Scenario_0006 fuel_supply_curves_0006
+    Scenario_0007 fuel_supply_curves_0007
+    Scenario_0008 fuel_supply_curves_0008
+    Scenario_0009 fuel_supply_curves_0009
+    Scenario_0010 fuel_supply_curves_0010
+    Scenario_0011 fuel_supply_curves_0011
+    Scenario_0012 fuel_supply_curves_0012
+    Scenario_0013 fuel_supply_curves_0013
+    Scenario_0014 fuel_supply_curves_0014
+;
+
+set StageVariables[Build] := 
+    BuildProj[*,*]
+    BuildBattery[*,*]
+    BuildPumpedHydroMW[*,*]
+    BuildAnyPumpedHydro[*,*]
+    RFMSupplyTierActivate[*,*,*]
+    BuildElectrolyzerMW[*,*]
+    BuildLiquifierKgPerHour[*,*]
+    BuildLiquidHydrogenTankKg[*,*]
+    BuildFuelCellMW[*,*]
+;
+
+set StageVariables[Operate] := 
+    DumpPower[*,*]
+    DispatchProj[*,*]
+    ProjFuelUseRate[*,*,*]
+    FuelConsumptionByTier[*,*,*]
+    FuelConsumptionInMarket[*,*]
+    BaseloadOperatingLevelForPeriod[*,*]
+    DemandResponse[*,*]
+    ChargeEVs[*,*]
+    PumpedHydroProjGenerateMW[*,*]
+    PumpedHydroProjStoreMW[*,*]
+    RunElectrolyzerMW[*,*]
+    LiquifyHydrogenKgPerHour[*,*]
+    WithdrawLiquidHydrogenKg[*,*]
+    DispatchFuelCellMW[*,*]
+    ChargeBattery[*,*]
+    DischargeBattery[*,*]
+    BatteryLevel[*,*]
+;
+
+param StageCostVariable := 
+    Build BuildCost
+    Operate OperateCost
+;
+

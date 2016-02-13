@@ -11,6 +11,15 @@ cur_dir = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(cur_dir, "switch-hawaii-core"))
 import util
 
+build_vars = [
+    "BuildProj", "BuildBattery", 
+    "BuildPumpedHydroMW", "BuildAnyPumpedHydro",
+    "RFMSupplyTierActivate",
+    "BuildElectrolyzerMW", "BuildLiquifierKgPerHour", "BuildLiquidHydrogenTankKg",
+    "BuildFuelCellMW"
+]
+inputs_dir = "inputs"
+
 class testphextension(SingletonPlugin):
 
     implements(phextension.IPHExtension) 
@@ -127,14 +136,6 @@ class testphextension(SingletonPlugin):
 
         m = ph.get_scenario_tree().get_arbitrary_scenario()._instance
 
-        build_vars = [
-            "BuildProj", "BuildBattery", 
-            "BuildPumpedHydroMW", "BuildAnyPumpedHydro",
-            "RFMSupplyTierActivate",
-            "BuildElectrolyzerMW", "BuildLiquifierKgPerHour", "BuildLiquidHydrogenTankKg",
-            "BuildFuelCellMW"
-        ]
-        
         vars = [getattr(m, v) for v in build_vars if hasattr(m, v)]
         vardata = [v[k] for v in vars for k in v]
         
@@ -160,3 +161,24 @@ class testphextension(SingletonPlugin):
             headings=("variable", "value"),
             values=lambda m, v: (v.cname(), safe_value(v))
         )
+
+rho_cost_multiplier = 1.0   # default value
+
+# based on pyomo_examples_11103/pysp/sizes/config/rhosetter.py and pyomo/pysp/ph.py
+def pysp_phrhosetter_callback(ph, scenario_tree, scenario):
+   
+    m = scenario._instance
+    
+    # read previously stored rho values (faster than calculating them each time)
+    with open(os.join(inputs_dir, "rhos.tsv"), "r") as f:
+        rhos={v: r 
+            for row in f 
+                for v, r in row.split('\t')}
+
+    for var in build_vars:
+        for v in getattr(m, var).values():
+            ph.setRhoOneScenario(
+                scenario_tree.findRootNode(),
+                scenario,
+                m._ScenarioTreeSymbolMap.getSymbol(scenario_instance.NumProducedFirstStage[i]),
+                rho_cost_multiplier * rhos[v.cname()])
