@@ -4,7 +4,7 @@ task_id=$SLURM_PROCID
 node_id=$SLURM_NODEID
 HOSTNAME=$(hostname)    # sometimes HOSTNAME seems to inherit from the submitting or launching node
 
-# note: nsp and node0_reserved_slots are defined in the slurm script
+# note: nsp and coordinator_reserved_slots are defined in the slurm script
 
 # setup environment for python jobs
 source ~/.bash_profile
