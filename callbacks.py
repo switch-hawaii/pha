@@ -1,4 +1,4 @@
-# based on pyomo/pysp/plugins/testphextension.py
+import debug
 
 from pyomo.util.plugin import *
 from pyomo.pysp import phextension
@@ -20,6 +20,7 @@ build_vars = [
 ]
 inputs_dir = "inputs_tiny"
 
+# based on pyomo/pysp/plugins/testphextension.py
 class testphextension(SingletonPlugin):
 
     implements(phextension.IPHExtension) 
@@ -164,21 +165,25 @@ class testphextension(SingletonPlugin):
 
 rho_cost_multiplier = 1.0   # default value
 
+rhos = None
+
 # based on pyomo_examples_11103/pysp/sizes/config/rhosetter.py and pyomo/pysp/ph.py
 def ph_rhosetter_callback(ph, scenario_tree, scenario):
+    global rhos
    
     m = scenario._instance
     
-    # read previously stored rho values (faster than calculating them each time)
-    with open(os.path.join(inputs_dir, "rhos.tsv"), "r") as f:
-        rhos={v: r 
-            for row in f 
-                for v, r in row.split('\t')}
+    if rhos is None:    # read rho values from disk if not cached already
+        # read previously stored rho values (much faster than calculating them)
+        with open(os.path.join(inputs_dir, "rhos.tsv"), "r") as f:
+            rows = [r[:-1].split('\t') for r in f]  # split at tabs; omit newlines
+            rhos = {r[0]: float(r[1]) for r in rows}
 
-    for var in build_vars:
-        for v in getattr(m, var).values():
+    for var_name in build_vars:
+        vars = getattr(m, var_name).values()
+        for v in vars:
             ph.setRhoOneScenario(
                 scenario_tree.findRootNode(),
                 scenario,
-                m._ScenarioTreeSymbolMap.getSymbol(scenario_instance.NumProducedFirstStage[i]),
-                rho_cost_multiplier * rhos[v.cname()])
+                m._ScenarioTreeSymbolMap.getSymbol(v),
+                max(1e-6, rho_cost_multiplier * rhos[v.cname()]))   # never set rho to zero, even if var isn't in obj. fn.
