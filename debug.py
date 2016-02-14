@@ -3,7 +3,6 @@
 # which requires a keypress at the start and may or may not process arguments correctly.
 
 import os, sys, socket, traceback, pdb
-import remote_pdb
 
 def info(type, value, tb):
     hostname = socket.gethostname()
@@ -27,7 +26,13 @@ def info(type, value, tb):
     print
     post_mortem(tb, port=port)
 
-sys.excepthook = info
+try:
+    import remote_pdb
+    sys.excepthook = info
+except ImportError:
+    print "ERROR: You must install remote_pdb (pip install_remote_pdb) to use the debug module."
+    print "remote debugging will not be available"
+
 
 # based on remote_pdb.set_trace() and
 # https://github.com/python/cpython/blob/master/Lib/pdb.py
