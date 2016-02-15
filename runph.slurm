@@ -1,11 +1,25 @@
 #!/bin/sh
 
-#SBATCH --job-name=ph4rho
-#SBATCH --partition=kill.q
-#SBATCH --time=1-12:00:00
-#SBATCH --nodes=1
+#SBATCH --job-name=ph100ann
+#SBATCH --partition=community.q
+#SBATCH --time=3-00:00:00
+#SBATCH --nodes=6
 #SBATCH --tasks-per-node=20
-#SBATCH --mem=128000    ## for the whole node
+
+##SBATCH --job-name=ph15rho
+##SBATCH --partition=kill.q
+##SBATCH --time=1-12:00:00
+##SBATCH --nodes=1
+##SBATCH --tasks-per-node=20
+
+##SBATCH --job-name=ph117rho
+##SBATCH --partition=community.q
+##SBATCH --time=3-00:00:00
+##SBATCH --nodes=8
+##SBATCH --tasks-per-node=20
+
+#SBATCH --mem-per-cpu=6400
+##SBATCH --mem=128000    ## for the whole node
 ##SBATCH --ntasks=60
 
 ## reporting
@@ -35,11 +49,13 @@
 
 # production version
 # note: both of the settings below are out of a total of 20 tasks per node
-export coordinator_reserved_slots=5  # number of slots to reserve for the coordinator processes on the first node
+export coordinator_reserved_slots=20  # number of slots to reserve for the coordinator processes on the first node
 export workers_per_node=20  # number of slots to use for workers on each node (could be reduced to conserve RAM)
-export runph_cmd='runph --phpyro-required-workers=15 --instance-directory=inputs_tiny/pha --default-rho=1000000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=callbacks --rho-cfgfile=rho_cfgfile_100 --verbose'
+export runph_cmd='runph --phpyro-required-workers=100 --instance-directory=inputs/pha_100_annual --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=callbacks --verbose'
+#export runph_cmd='runph --phpyro-required-workers=15 --instance-directory=inputs/pha_15 --rho-cfgfile=rho_cfgfile_100x --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=callbacks --verbose'
+#export runph_cmd='runph --phpyro-required-workers=117 --instance-directory=inputs/pha_117 --rho-cfgfile=rho_cfgfile_050 --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=callbacks --verbose'
 # single-core test:
-# runph --instance-directory=inputs_tiny/pha --default-rho=1000000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=callbacks --rho-cfgfile=rho_cfgfile_100 --verbose
+# runph --instance-directory=inputs_tiny/pha --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=callbacks --rho-cfgfile=rho_cfgfile_100 --verbose
 
 #export runph_cmd='runph --solver-manager=phpyro --shutdown-pyro --phpyro-required-workers=117 --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --instance-directory=inputs/pha_117 --default-rho=1000000000 --traceback --max-iterations=1000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=reporting_phextension --verbose'
 

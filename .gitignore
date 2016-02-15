@@ -1,5 +1,7 @@
 *.out
 *.err
+*.mem
+*_bak.tsv
 switch-hawaii-core/
 switch/
 debug.pyc get_pha_data.pyc pha_bounds_cfg.pyc ReferenceModel.pyc reporting_phextension.pyc solve_pha_simple.pyc

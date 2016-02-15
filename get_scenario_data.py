@@ -9,6 +9,7 @@ sys.path.append(path_to_core)
 import scenario_data, scenarios
 
 scenarios.parser.add_argument('--skip_cf', action='store_true')
+scenarios.parser.add_argument('--write_rhos', action='store_true')
 scenarios.parser.add_argument('--time_sample')
 cmd_line_args = scenarios.cmd_line_args()
 
@@ -199,4 +200,19 @@ for a in alt_args:
     active_args = dict(args.items() + a.items())
     scenario_data.write_tables(**active_args)
     
-
+if cmd_line_args['write_rhos']:
+    # calculate and store the per-variable rho values
+    print "creating rho settings files (takes several minutes)..."
+    import ReferenceModel
+    inputs_dirs = set()
+    inputs_dirs.add(args["inputs_dir"])
+    for a in alt_args:
+        inputs_dirs.add(a["inputs_dir"])
+    for inputs_dir in inputs_dirs:
+        ReferenceModel.inputs_dir = inputs_dir
+        ReferenceModel.create_model()
+        ReferenceModel.load_inputs()
+        ReferenceModel.save_rho_file()
+else:
+    print "SKIPPING rho settings files."
+    print "Use --write_rhos flag to write the rho settings files."

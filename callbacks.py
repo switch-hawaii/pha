@@ -18,7 +18,7 @@ build_vars = [
     "BuildElectrolyzerMW", "BuildLiquifierKgPerHour", "BuildLiquidHydrogenTankKg",
     "BuildFuelCellMW"
 ]
-inputs_dir = "inputs_tiny"
+inputs_dir = "inputs"
 
 # based on pyomo/pysp/plugins/testphextension.py
 class testphextension(SingletonPlugin):

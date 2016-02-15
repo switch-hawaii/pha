@@ -16,8 +16,8 @@ ReferenceModel.dat file ("import ReferenceModel; ReferenceModel.load_dat_inputs(
 
 # define data location and size
 inputs_dir = "inputs"
-pha_subdir = "pha"
-n_scenarios = 4
+pha_subdir = "pha_100_annual"
+n_scenarios = 100
 n_digits = 4    # zero-padding in existing file names and scenario names
 
 build_vars = [
@@ -57,37 +57,44 @@ from util import get
 
 add_relative_path('.') # components for this particular study
 
-print "loading model..."
-
-model = define_AbstractModel(
-    'switch_mod', 
-    'fuel_markets', 'fuel_markets_expansion',
-    'project.no_commit', 
-    'switch_patch',
-    'rps', 'emission_rules',
-    'demand_response_simple', 
-    'ev',
-    'pumped_hydro',
-    'hydrogen', 
-    'batteries'
-)
-# add dummy expressions to keep runph happy
-# note: we may need to delve into the objective expression
-# and apportion its elements between these based on whether
-# they are in the build_variables list or not
-model.BuildCost = Expression(rule=lambda m: 0.0)
-model.OperateCost = Expression(rule=lambda m: m.Minimize_System_Cost.expr)
-# define upper and lower reduced costs to use when setting rho
-# model.iis = Suffix(direction=Suffix.IMPORT)
-model.dual = Suffix(direction=Suffix.IMPORT)
-model.urc = Suffix(direction=Suffix.IMPORT)
-model.lrc = Suffix(direction=Suffix.IMPORT)
-model.rc = Suffix(direction=Suffix.IMPORT)
-
+model = None
 instance = None
 
 # if loaded as ReferenceModel.py, just yield the model
 # if loaded directly with an output file argument, write the dat file
+
+def create_model():
+    global model
+    print "loading model..."
+
+    model = define_AbstractModel(
+        'switch_mod', 
+        'fuel_markets', 'fuel_markets_expansion',
+        'project.no_commit', 
+        'switch_patch',
+        'rps', 'emission_rules',
+        'demand_response_simple', 
+        'ev',
+        'pumped_hydro',
+        'hydrogen', 
+        'batteries'
+    )
+    # add dummy expressions to keep runph happy
+    # note: we may need to delve into the objective expression
+    # and apportion its elements between these based on whether
+    # they are in the build_variables list or not
+    model.BuildCost = Expression(rule=lambda m: 0.0)
+    model.OperateCost = Expression(rule=lambda m: m.Minimize_System_Cost.expr)
+    # define upper and lower reduced costs to use when setting rho
+    # model.iis = Suffix(direction=Suffix.IMPORT)
+    model.dual = Suffix(direction=Suffix.IMPORT)
+    model.urc = Suffix(direction=Suffix.IMPORT)
+    model.lrc = Suffix(direction=Suffix.IMPORT)
+    model.rc = Suffix(direction=Suffix.IMPORT)
+
+# always create the model when the module is imported,
+# so it can be used by runph 
+create_model()
 
 def load_inputs():
     global instance
@@ -256,4 +263,4 @@ if __name__ == '__main__':
     # called directly from command line; save data and exit
     load_inputs()
     save_dat_files()
-    save_rho_file()
+    # save_rho_file()   # this is now called from get_scenario_data.py

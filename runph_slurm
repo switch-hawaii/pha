@@ -33,11 +33,19 @@ log_cpu ()
         # keep showing cpu and memory usage until this task gets killed
         sleep 60
         ((minute_counter++))
-        echo ""
-        echo "Memory and CPU usage on $HOSTNAME after $minute_counter minutes:"
-        free | head -n 2
-        ps ux | sort -rk 3,3
-        echo ""
+
+        if ((SLURM_NODEID == 0)); then
+            # report timing once per minute, but only on node 0
+            echo ""
+            echo "$minute_counter minutes"
+            echo ""
+        fi
+
+        echo "" >> $SLURM_JOBID.mem
+        echo "Memory and CPU usage on $HOSTNAME after $minute_counter minutes:" >> $SLURM_JOBID.mem
+        free | head -n 2 >> $SLURM_JOBID.mem
+        ps ux | sort -rnk 3,3 >> $SLURM_JOBID.mem
+        echo "" >> $SLURM_JOBID.mem
     done
 }
 
