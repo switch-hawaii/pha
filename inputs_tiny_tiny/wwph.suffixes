@@ -1,0 +1,131 @@
+RootNode:
+    BuildProj[Oahu_CCCT,2037]:
+        CostForRho: 2154975.32731
+    BuildProj[Oahu_Waiau_W10_W9,1973]:
+        CostForRho: 1694147.78408
+    BuildProj[Oahu_Waiau_W7_W8,1968]:
+        CostForRho: 2964837.92285
+    BuildProj[Oahu_Kahuku_1,2011]:
+        CostForRho: 14512296.5228
+    BuildProj[Oahu_Waiau_W5,1959]:
+        CostForRho: 2943755.29033
+    BuildProj[Oahu_Waiau_W4,1950]:
+        CostForRho: 1e-06
+    BuildProj[Oahu_Kahe_K2,1964]:
+        CostForRho: 2977037.50411
+    BuildProj[Oahu_DistPV_peak_1_na,2037]:
+        CostForRho: 2051275.07018
+    BuildProj[Oahu_Kalaeloa_CC1_CC2,1991]:
+        CostForRho: 3583654.69831
+    BuildProj[Oahu_Solar_DistPV,2013]:
+        CostForRho: 7519502.04809
+    BuildProj[Oahu_Reciprocating,2037]:
+        CostForRho: 1404744.73369
+    BuildProj[Oahu_Kahe_K3,1970]:
+        CostForRho: 3003195.82549
+    BuildProj[Oahu_Honolulu_H8,1954]:
+        CostForRho: 1e-06
+    BuildProj[Oahu_Kahe_K4,1972]:
+        CostForRho: 3016205.73427
+    BuildProj[Oahu_CIP_CIP1,2009]:
+        CostForRho: 1768296.73647
+    BuildProj[Oahu_Waiau_W6,1961]:
+        CostForRho: 2948893.34346
+    BuildProj[Oahu_Chevron_GEN1_GEN2_GEN3,1990]:
+        CostForRho: 1711096.88235
+    BuildProj[Oahu_Tesoro_GEN1,1982]:
+        CostForRho: 1701007.27079
+    BuildProj[Oahu_Waiau_W7_W8,1966]:
+        CostForRho: 2964837.92285
+    BuildProj[Oahu_Kahe_K5,1974]:
+        CostForRho: 3047843.34222
+    BuildProj[Oahu_CCCT,2021]:
+        CostForRho: 5613078.11114
+    BuildProj[Oahu_Honolulu_H9,1957]:
+        CostForRho: 1e-06
+    BuildProj[Oahu_Reciprocating,2021]:
+        CostForRho: 3658947.65313
+    BuildProj[Oahu_Kahe_K6,1981]:
+        CostForRho: 3128144.18147
+    BuildProj[Oahu_Chevron_GEN4,2011]:
+        CostForRho: 1779312.04178
+    BuildProj[Oahu_Kalaeloa_KAS2,2012]:
+        CostForRho: 5245916.39906
+    BuildProj[Oahu_Kawailoa_1,2012]:
+        CostForRho: 14551652.9684
+    BuildProj[Oahu_SCCT,2021]:
+        CostForRho: 4003133.44578
+    BuildProj[Oahu_Kalaeloa_CC1_CC2,1989]:
+        CostForRho: 3583654.69831
+    BuildProj[Oahu_AES_GEN1,1992]:
+        CostForRho: 3587218.09071
+    BuildProj[Oahu_Kahe_K1,1963]:
+        CostForRho: 2972717.05289
+    BuildProj[Oahu_HPower_GEN1,1989]:
+        CostForRho: 3578111.53782
+    BuildProj[Oahu_SCCT,2037]:
+        CostForRho: 1536884.68907
+    BuildProj[Oahu_Waiau_W3,1947]:
+        CostForRho: 1e-06
+    BuildProj[Oahu_DistPV_peak_1_na,2021]:
+        CostForRho: 5342969.38367
+    BuildBattery[Oahu,2021]:
+        CostForRho: 618211.228089
+    BuildBattery[Oahu,2037]:
+        CostForRho: 237343.916692
+    BuildPumpedHydroMW[Lake_Wilson,2021]:
+        CostForRho: 4063020.72252
+    BuildPumpedHydroMW[Lake_Wilson,2037]:
+        CostForRho: 1559876.63774
+    BuildAnyPumpedHydro[Lake_Wilson,2021]:
+        CostForRho: 1e-06
+    BuildAnyPumpedHydro[Lake_Wilson,2037]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_Diesel,2021,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_LNG,2021,bulk]:
+        CostForRho: 799833499.152
+    RFMSupplyTierActivate[Hawaii_Pellet-Biomass,2037,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_LNG,2037,container]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_LSFO,2021,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_Coal,2037,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_Biodiesel,2037,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_LSFO-Diesel-Blend,2021,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_Diesel,2037,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_LNG,2037,bulk]:
+        CostForRho: 498429793.552
+    RFMSupplyTierActivate[Hawaii_Pellet-Biomass,2021,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_LNG,2021,container]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_LSFO,2037,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_Coal,2021,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_Biodiesel,2021,base]:
+        CostForRho: 1e-06
+    RFMSupplyTierActivate[Hawaii_LSFO-Diesel-Blend,2037,base]:
+        CostForRho: 1e-06
+    BuildElectrolyzerMW[Oahu,2021]:
+        CostForRho: 3080024.94157
+    BuildElectrolyzerMW[Oahu,2037]:
+        CostForRho: 1182484.48091
+    BuildLiquifierKgPerHour[Oahu,2021]:
+        CostForRho: 52037.2057343
+    BuildLiquifierKgPerHour[Oahu,2037]:
+        CostForRho: 19978.1460791
+    BuildLiquidHydrogenTankKg[Oahu,2021]:
+        CostForRho: 33.4724712372
+    BuildLiquidHydrogenTankKg[Oahu,2037]:
+        CostForRho: 12.8507652283
+    BuildFuelCellMW[Oahu,2021]:
+        CostForRho: 2247069.46581
+    BuildFuelCellMW[Oahu,2037]:
+        CostForRho: 862695.861647
