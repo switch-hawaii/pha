@@ -1,8 +1,12 @@
 """User-defined convergence class to use with pysp's progressive hedging algorithm.
 
-This can be loaded by specifying 
+This depends on pysp's phboundextension. It can be loaded by specifying 
 --user-defined-extension=pyomo.pysp.plugins.phboundextension --user-defined-extension=optimality_gap_convergence
 on the runph command line.
+
+By default, this will calculate inner and outer bounds every iteration, which is fairly expensive
+(two solves with fixed investment variables). These calculations can be spread out by setting an 
+environment variable PHBOUNDINTERVAL greater than 1.
 
 This code is based on pyomo.pysp.convergence. PySP does not provide a user-definable convergence class, 
 but we inject one by adding it to ph._convergers from the pre_ph_initialization method of a standard plugin.
