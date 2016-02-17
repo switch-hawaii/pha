@@ -19,6 +19,10 @@ from pyomo.pysp.convergence import ConvergenceBase
 
 convergence_threshold = 0.0001
 
+# TODO: this converger is somewhat expensive, since solves must be run to get the inner and outer bounds
+# a better option might be to converge based on (c . x_max) / (c . x_min) - 1, which is given as qd in 
+# "Progressive Hedging Innovations..." (2011) by Watson and Woodruff
+
 class OptimalityGapConvergence(ConvergenceBase):
 
     def __init__(self, *args, **kwds):
