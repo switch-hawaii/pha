@@ -22,9 +22,16 @@ print "loading pha_bounds_cfg.py"
 
 
 def pysp_boundsetter_callback(self, scenario_tree, scenario):
-    m = scenario._instance 	# see pyomo/pysp/scenariotree/tree_structure.py
-
     # import pdb; f = pdb.set_trace; f()
+
+    build_file = os.environ.get('PHA_BUILD_FILE')
+    if build_file is not None:   # no build file specified
+        set_standard_bounds(self, scenario_tree, scenario)
+    else:
+        set_bounds_from_build_file(self, scenario_tree, scenario, build_file)
+
+def set_standard_bounds(self, scenario_tree, scenario):
+    m = scenario._instance 	# see pyomo/pysp/scenariotree/tree_structure.py
 
     if hasattr(m, "hydrogen_electrolyzer_kg_per_mwh"):
         electrolyzer_kg_per_mwh = m.hydrogen_electrolyzer_kg_per_mwh
@@ -80,6 +87,32 @@ def pysp_boundsetter_callback(self, scenario_tree, scenario):
                 # # setVariableBoundsAllScenarios. Also note: that function doesn't really need
                 # # a treenode, but we pass it anyway.
                 # self.setVariableBoundsOneScenario(tree_node, scenario, var_id, 0.0, float(limit))
+
+def set_bounds_from_build_file(self, scenario_tree, scenario, build_file):
+    print "Pinning variables based on values in " + build_file
+
+    m = scenario._instance 	# see pyomo/pysp/scenariotree/tree_structure.py
+
+    build_vars = [
+        "BuildProj", "BuildBattery", 
+        "BuildPumpedHydroMW", "BuildAnyPumpedHydro",
+        "RFMSupplyTierActivate",
+        "BuildElectrolyzerMW", "BuildLiquifierKgPerHour", "BuildLiquidHydrogenTankKg",
+        "BuildFuelCellMW"
+    ]
+
+    # note: this could be switched around to lookup the var based on its cname()
+    # (given in the build file), but it's not clear how to do that.
+    with open(os.path.join(build_file), "r") as f:
+        rows = [r[:-1].split('\t') for r in f[1:]]  # skip headers; split at tabs; omit newlines
+        vals = {r[0]: float(r[1]) for r in rows}    
+
+    for var_name in build_vars:
+        if hasattr(m, var_name):
+            for v in getattr(m, var_name).values():
+                v.setlb(vals[v.cname()])
+                v.setub(vals[v.cname()])
+
     
 # for some reason runph looks for pysp_boundsetter_callback when run in single-thread mode
 # and ph_boundsetter_callback when called from mpirun with remote execution via pyro.
