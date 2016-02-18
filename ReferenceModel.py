@@ -16,8 +16,8 @@ ReferenceModel.dat file ("import ReferenceModel; ReferenceModel.load_dat_inputs(
 
 # define data location and size
 inputs_dir = "inputs"
-pha_subdir = "pha_100_annual"
-n_scenarios = 100
+pha_subdir = "pha_117_mean"
+n_scenarios = 1
 n_digits = 4    # zero-padding in existing file names and scenario names
 
 build_vars = [
