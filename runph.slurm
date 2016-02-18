@@ -14,23 +14,39 @@
 ##SBATCH --nodes=6
 ##SBATCH --tasks-per-node=20
 
-#SBATCH --job-name=ph15og
-#SBATCH --partition=kill.q
-#SBATCH --time=1-12:00:00
-#SBATCH --nodes=1
-#SBATCH --tasks-per-node=20
-# note: both of the settings below are out of a total of 20 tasks per node
-export coordinator_reserved_slots=5  # number of slots to reserve for the coordinator processes on the first node
-export workers_per_node=20  # number of slots to use for workers on each node (could be reduced to conserve RAM)
-export PHBOUNDINTERVAL=5
-export runph_cmd='runph --phpyro-required-workers=15 --instance-directory=inputs/pha_15  --rho-cfgfile=rho_cfgfile_100 --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=pyomo.pysp.plugins.phboundextension --user-defined-extension=optimality_gap_convergence --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph_slam.cfg --ww-extension-suffixfile=inputs/wwph_slam.suffixes'
+##SBATCH --job-name=ph15og
+##SBATCH --partition=kill.q
+##SBATCH --time=1-12:00:00
+##SBATCH --nodes=1
+##SBATCH --tasks-per-node=20
+## note: both of the settings below are out of a total of 20 tasks per node
+#export coordinator_reserved_slots=5  # number of slots to reserve for the coordinator processes on the first node
+#export workers_per_node=20  # number of slots to use for workers on each node (could be reduced to conserve RAM)
+#export PHBOUNDINTERVAL=5
+#export runph_cmd='runph --phpyro-required-workers=15 --instance-directory=inputs/pha_15  --rho-cfgfile=rho_cfgfile_100 --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=pyomo.pysp.plugins.phboundextension --user-defined-extension=optimality_gap_convergence --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph_slam.cfg --ww-extension-suffixfile=inputs/wwph_slam.suffixes'
 # export runph_cmd='runph --phpyro-required-workers=15 --instance-directory=inputs/pha_15 --ww-extension-suffixfile=inputs/wwph.suffixes --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=pyomo.pysp.plugins.phboundextension --user-defined-extension=optimality_gap_convergence --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph.cfg'
 
-##SBATCH --job-name=ph117rho
+##SBATCH --job-name=ph117slam
 ##SBATCH --partition=community.q
 ##SBATCH --time=3-00:00:00
-##SBATCH --nodes=8
+##SBATCH --nodes=7
 ##SBATCH --tasks-per-node=20
+#export coordinator_reserved_slots=20  # number of slots to reserve for the coordinator processes on the first node
+#export workers_per_node=20  # number of slots to use for workers on each node (could be reduced to conserve RAM)
+#export runph_cmd='runph --phpyro-required-workers=117 --instance-directory=inputs/pha_117 --rho-cfgfile=callbacks --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph_slam.cfg --ww-extension-suffixfile=inputs/wwph_slam.suffixes --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py'
+## pin the build variables to the final plan from a particular run (used by pha_bounds_cfg.py)
+## this should force immediate convergence, but it's handy for testing the plan with all the scenarios.
+##export PHA_BUILD_FILE="outputs/build_416910.tsv"
+
+#SBATCH --job-name=phtiny
+#SBATCH --partition=sb.q
+#SBATCH --time=0-01:00:00
+#SBATCH --nodes=1
+#SBATCH --tasks-per-node=5
+export coordinator_reserved_slots=1  # number of slots to reserve for the coordinator processes on the first node
+export workers_per_node=5  # number of slots to use for workers on each node (could be reduced to conserve RAM)
+export runph_cmd='runph --phpyro-required-workers=4 --instance-directory=inputs_tiny/pha --rho-cfgfile=callbacks --user-defined-extension=callbacks_test --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph_slam.cfg --ww-extension-suffixfile=inputs/wwph_slam.suffixes --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py'
+
 
 ## NOTE: any #SBATCH directives that come after executable code will be ignored
 ## so all export statements should be commented out along with the corresponding SBATCH statements

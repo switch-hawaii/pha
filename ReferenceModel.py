@@ -15,9 +15,12 @@ ReferenceModel.dat file ("import ReferenceModel; ReferenceModel.load_dat_inputs(
 # import debug
 
 # define data location and size
+# NOTE: these are not used when the model is loaded by runph;
+# they are only used when ReferenceModel is run as a script
+# to create runph input files.
 inputs_dir = "inputs"
-pha_subdir = "pha_100_annual"
-n_scenarios = 100
+pha_subdir = "pha_117"
+n_scenarios = 117
 n_digits = 4    # zero-padding in existing file names and scenario names
 
 build_vars = [
