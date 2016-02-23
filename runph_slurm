@@ -107,7 +107,12 @@ elif ((node_task_num < workers_per_node)); then
     echo "Starting dispatch_srvr and phsolverserver in task $task_id on host $(hostname)"
     await_pyomo_ns
     dispatch_srvr -p $nsp --allow-multiple-dispatchers &
-    phsolverserver --traceback --pyro-port=$nsp
+    if [ "$phsolverserver_cmd" ]; then
+        echo "using custom phsolverserver command: $phsolverserver_cmd"
+        eval $phsolverserver_cmd
+    else
+        phsolverserver --traceback --pyro-port=$nsp
+    fi
 else
     # don't run additional tasks on each node, to conserve memory for the others
     echo "not running any process for task $task_id on host $(hostname)"

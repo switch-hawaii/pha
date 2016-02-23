@@ -162,9 +162,6 @@ class testphextension(SingletonPlugin):
             headings=("variable", "value"),
             values=lambda m, v: (v.cname(), safe_value(v))
         )
-        
-        # dig around to figure out where the instance data are...
-        import remote_pdb; remote_pdb.set_trace()
 
 rho_cost_multiplier = 1.0   # default value
 

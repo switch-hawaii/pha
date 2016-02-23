@@ -27,26 +27,66 @@
 # export runph_cmd='runph --phpyro-required-workers=15 --instance-directory=inputs/pha_15 --ww-extension-suffixfile=inputs/wwph.suffixes --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py --user-defined-extension=pyomo.pysp.plugins.phboundextension --user-defined-extension=optimality_gap_convergence --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph.cfg'
 
 ##SBATCH --job-name=ph117slam
-##SBATCH --partition=community.q
-##SBATCH --time=3-00:00:00
+##SBATCH --partition=kill.q
+##SBATCH --time=0-02:00:00
 ##SBATCH --nodes=7
 ##SBATCH --tasks-per-node=20
 #export coordinator_reserved_slots=20  # number of slots to reserve for the coordinator processes on the first node
 #export workers_per_node=20  # number of slots to use for workers on each node (could be reduced to conserve RAM)
-#export runph_cmd='runph --phpyro-required-workers=117 --instance-directory=inputs/pha_117 --rho-cfgfile=callbacks --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph_slam.cfg --ww-extension-suffixfile=inputs/wwph_slam.suffixes --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py'
-## pin the build variables to the final plan from a particular run (used by pha_bounds_cfg.py)
-## this should force immediate convergence, but it's handy for testing the plan with all the scenarios.
-##export PHA_BUILD_FILE="outputs/build_416910.tsv"
+#export runph_cmd='runph --phpyro-required-workers=117 --instance-directory=inputs/pha_117 --rho-cfgfile=callbacks --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph_slam.cfg --ww-extension-suffixfile=inputs/wwph_slam.suffixes --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1 --bounds-cfgfile=pha_bounds_cfg.py'
 
-#SBATCH --job-name=phtiny
-#SBATCH --partition=sb.q
-#SBATCH --time=0-01:00:00
-#SBATCH --nodes=1
-#SBATCH --tasks-per-node=5
-export coordinator_reserved_slots=1  # number of slots to reserve for the coordinator processes on the first node
-export workers_per_node=5  # number of slots to use for workers on each node (could be reduced to conserve RAM)
-export runph_cmd='runph --phpyro-required-workers=4 --instance-directory=inputs_tiny/pha --rho-cfgfile=callbacks --user-defined-extension=callbacks_test --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph_slam.cfg --ww-extension-suffixfile=inputs/wwph_slam.suffixes --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py'
+# evaluate quality of previous solutions
+# was run once for slammed, converged model (job 422400)
+# was run once for best solution for mean price forecast (job 422401)
+# was run 117 times with best single solution for each scenario (job 422434-422437) (422408 / 422409 were canceled)
+#SBATCH --job-name=pheval
+##SBATCH --partition=community.q
+##SBATCH --time=3-00:00:00
+#SBATCH --partition=kill.q
+#SBATCH --time=2-00:00:00
+#SBATCH --nodes=7
+#SBATCH --tasks-per-node=20
+export coordinator_reserved_slots=20  # number of slots to reserve for the coordinator processes on the first node
+export workers_per_node=20  # number of slots to use for workers on each node (could be reduced to conserve RAM)
+export runph_cmd='runph --phpyro-required-workers=117 --instance-directory=inputs/pha_117 --disable-xhat-computation --rho-cfgfile=callbacks --user-defined-extension=callbacks --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=0 --bounds-cfgfile=pha_bounds_cfg.py'
+# pin the build variables to the final plan from a particular run (used by pha_bounds_cfg.py)
+# this should force immediate convergence, but it's handy for testing the plan with all the scenarios.
+# note: build_416974_xhat is the slammed, converged result for 117 scenarios
+# build_422384_xhat is the single-scenario solution for the mean price forecast
+# build_422385_iter0_Scenario_nnnn.tsv is the iteration-0 builds (optimal for each scenario)
+#export PHA_FIX_BUILD_VARS_FILES="outputs/build_416974_xhat.tsv"
+#export PHA_FIX_BUILD_VARS_FILE="outputs/build_422384_xhat.tsv"
+export PHA_FIX_BUILD_VARS_FILES=outputs/build_422385_iter0_Scenario_*.tsv
+export PHA_WRITE_SCENARIO_SUMMARY="1"
+# double-check these match the specified builds...
+export PHA_WRITE_ITER0_SCENARIO_BUILDS="1"
 
+# just one solution, for the mean pricing
+##SBATCH --job-name=ph117mean
+##SBATCH --partition=kill.q
+##SBATCH --time=0-02:00:00
+##SBATCH --nodes=1
+##SBATCH --tasks-per-node=2
+#export coordinator_reserved_slots=1  # number of slots to reserve for the coordinator processes on the first node
+#export workers_per_node=2  # number of slots to use for workers on each node (could be reduced to conserve RAM)
+#export runph_cmd='runph --phpyro-required-workers=1 --instance-directory=inputs/pha_117_mean --rho-cfgfile=callbacks --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph.cfg --ww-extension-suffixfile=inputs/wwph.suffixes --default-rho=100000000 --termdiff-threshold=0.001 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py'
+
+##SBATCH --job-name=phtiny
+##SBATCH --partition=sb.q
+##SBATCH --time=0-01:00:00
+##SBATCH --nodes=1
+##SBATCH --tasks-per-node=5
+#export coordinator_reserved_slots=1  # number of slots to reserve for the coordinator processes on the first node
+#export workers_per_node=5  # number of slots to use for workers on each node (could be reduced to conserve RAM)
+#export runph_cmd='runph --phpyro-required-workers=4 --instance-directory=inputs_tiny/pha --rho-cfgfile=callbacks --user-defined-extension=callbacks --verbose --enable-ww-extensions --ww-extension-cfgfile=wwph_slam.cfg --ww-extension-suffixfile=inputs_tiny/wwph_slam.suffixes --default-rho=100000000 --termdiff-threshold=0.01 --linearize-nonbinary-penalty-terms=7 --breakpoint-strategy=1 --solver-manager=phpyro --shutdown-pyro --pyro-port=$nsp --solver=cplexamp --scenario-solver-options="threads=1" --model-directory=. --traceback --max-iterations=1000 --bounds-cfgfile=pha_bounds_cfg.py'
+
+# report various scenario-by-scenario data
+#export PHA_WRITE_SCENARIO_SUMMARY="1"
+#export PHA_WRITE_ITER0_SCENARIO_BUILDS="1"
+#export PHA_WRITE_XHAT_BUILD="1"
+
+# this version of the phsolverserver cmd enables the various PHA_WRITE_... options
+export phsolverserver_cmd='phsolverserver --traceback --pyro-port=$nsp --user-defined-extension=callbacks'
 
 ## NOTE: any #SBATCH directives that come after executable code will be ignored
 ## so all export statements should be commented out along with the corresponding SBATCH statements
@@ -93,14 +133,43 @@ export runph_cmd='runph --phpyro-required-workers=4 --instance-directory=inputs_
 # occur in this .slurm file.)
 
 
-export nsp=$(/home/mfripp/apps/next_port.py)
-echo "Starting runph.slurm; will use port $nsp for pyro name server."
+launch_job ()
+{ 
+    export nsp=$(/home/mfripp/apps/next_port.py)
+    echo "Starting runph.slurm; will use port $nsp for pyro name server."
 
-# show the runph command that will be run for this job
-echo =============================== runph command ====================================
-echo $runph_cmd
-echo ================================================================================== 
-# run the job
-# note: we use stdbuf to switch to line buffering instead of default (4k?) buffering
-# it's possible that the srun --unbuffered flag would help with this.
-srun stdbuf -oL -eL ./runph_slurm
+    # show the runph command that will be run for this job
+    echo =============================== runph command ====================================
+    echo $runph_cmd
+    env | grep PHA_
+    echo ================================================================================== 
+    # run the job
+    # note: we use stdbuf to switch to line buffering instead of default (4k?) buffering
+    # it's possible that the srun --unbuffered flag would help with this.
+    srun stdbuf -oL -eL ./runph_slurm
+
+}
+
+if [ "$PHA_FIX_BUILD_VARS_FILES" ]; then
+    for f in $PHA_FIX_BUILD_VARS_FILES; do
+        export PHA_FIX_BUILD_VARS_FILE=$f
+        # create a blank "in progress" file; this guarantees grep will run OK and also 
+        # throws any canceled job back into the queue.
+        echo "" > $SLURM_JOBID.running
+        if grep $PHA_FIX_BUILD_VARS_FILE *.run* > /dev/null ; then 
+            echo ================================================================================== 
+            echo "Skipping $PHA_FIX_BUILD_VARS_FILE; already processed by another worker."
+            echo ================================================================================== 
+        else
+            echo $PHA_FIX_BUILD_VARS_FILE > $SLURM_JOBID.running
+            launch_job
+            # it would be nice to do remove the .running file even if the job is canceled,
+            # but only add the job to the .run file if it succeeds.
+            echo adding $PHA_FIX_BUILD_VARS_FILE to $SLURM_JOBID.run
+            echo $PHA_FIX_BUILD_VARS_FILE >> $SLURM_JOBID.run
+            rm $SLURM_JOBID.running
+        fi
+    done
+else
+    launch_job
+fi

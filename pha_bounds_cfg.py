@@ -1,5 +1,6 @@
 # use this by adding terms like the following to the runph command:
 # --linearize-nonbinary-penalty-terms=5 --breakpoint-strategy=1 --bounds-cfgfile=pha_bounds_cfg.py
+import os
 
 print "loading pha_bounds_cfg.py"
 
@@ -24,8 +25,8 @@ print "loading pha_bounds_cfg.py"
 def pysp_boundsetter_callback(self, scenario_tree, scenario):
     # import pdb; f = pdb.set_trace; f()
 
-    build_file = os.environ.get('PHA_BUILD_FILE')
-    if build_file is not None:   # no build file specified
+    build_file = os.environ.get('PHA_FIX_BUILD_VARS_FILE')
+    if build_file is None:   # no build file specified
         set_standard_bounds(self, scenario_tree, scenario)
     else:
         set_bounds_from_build_file(self, scenario_tree, scenario, build_file)
@@ -104,7 +105,7 @@ def set_bounds_from_build_file(self, scenario_tree, scenario, build_file):
     # note: this could be switched around to lookup the var based on its cname()
     # (given in the build file), but it's not clear how to do that.
     with open(os.path.join(build_file), "r") as f:
-        rows = [r[:-1].split('\t') for r in f[1:]]  # skip headers; split at tabs; omit newlines
+        rows = [r[:-1].split('\t') for r in f.readlines()[1:]]  # skip headers; split at tabs; omit newlines
         vals = {r[0]: float(r[1]) for r in rows}    
 
     for var_name in build_vars:
