@@ -26,8 +26,8 @@ for tag, group in builds:
 # results of that scenario
 keys = []
 results_mean = {}
-results_05 = {}
-results_95 = {}
+results_01 = {}
+results_99 = {}
 for group, build_list in build_scenarios.iteritems():
     for scenario, file_list in build_list.iteritems():
         # read files, get average and summary statistics
@@ -42,20 +42,20 @@ for group, build_list in build_scenarios.iteritems():
                     if key not in keys:
                         keys.append(key)
         results_mean[group, scenario] = {k: np.mean(v) for k, v in vals.iteritems()}
-        results_05[group, scenario] = {k: np.percentile(v, 5) for k, v in vals.iteritems()}
-        results_95[group, scenario] = {k: np.percentile(v, 95) for k, v in vals.iteritems()}
+        results_01[group, scenario] = {k: np.percentile(v, 1) for k, v in vals.iteritems()}
+        results_99[group, scenario] = {k: np.percentile(v, 99) for k, v in vals.iteritems()}
 
 with open("outputs/summary_all_scenarios.tsv", "w") as f:
     f.write("group\tscenario\t" + "\t".join(
         ["_".join(key) for key in keys] 
-        + ["_".join(key)+"_05" for key in keys]
-        + ["_".join(key)+"_95" for key in keys]
+        + ["_".join(key)+"_01" for key in keys]
+        + ["_".join(key)+"_99" for key in keys]
     ) + "\n")
     for tag, group in builds:
         for scenario in build_scenarios[group].keys():
             f.write("\t".join(
                 [group, scenario]
                 + [str(results_mean[group, scenario][key]) for key in keys]
-                + [str(results_05[group, scenario][key]) for key in keys]
-                + [str(results_95[group, scenario][key]) for key in keys]
+                + [str(results_01[group, scenario][key]) for key in keys]
+                + [str(results_99[group, scenario][key]) for key in keys]
             ) + "\n")

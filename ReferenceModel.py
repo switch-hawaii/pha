@@ -63,14 +63,14 @@ add_relative_path('.') # components for this particular study
 model = None
 instance = None
 
-# if loaded as ReferenceModel.py, just yield the model
+# if imported by another module, just create the model (which will be extracted by the other module)
 # if loaded directly with an output file argument, write the dat file
 
 def create_model():
     global model
     print "loading model..."
 
-    model = define_AbstractModel(
+    module_list = [
         'switch_mod', 
         'fuel_markets', 'fuel_markets_expansion',
         'project.no_commit', 
@@ -81,7 +81,21 @@ def create_model():
         'pumped_hydro',
         'hydrogen', 
         'batteries'
-    )
+    ]
+
+    # customize module list based on environment variables (if set)
+    add_modules = os.getenv("INCLUDE_MODULES", None):
+        if add_modules is not None:
+            print "Adding modules: {}".format(add_modules)
+            module_list.extend(add_modules.split(" "))
+    drop_modules = os.getenv("EXCLUDE_MODULES", None):
+        if drop_modules is not None:
+            print "Excluding modules: {}".format(drop_modules)
+            for m in drop_modules.split(" "):
+                module_list.remove(m)
+            
+    
+    model = define_AbstractModel(*module_list)
     # add dummy expressions to keep runph happy
     # note: we may need to delve into the objective expression
     # and apportion its elements between these based on whether
